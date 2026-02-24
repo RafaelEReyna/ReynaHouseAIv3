@@ -5,6 +5,14 @@
 - Image optimization: built-in via `astro:assets` (no separate package)
 - Node project name: `reynahouseai`
 
+## Deployment
+- **GitHub:** https://github.com/RafaelEReyna/ReynaHouseAIv3 (branch: `main`)
+- **Netlify site:** `reynahouseai-v3` (ID: `a389add7-46f3-4944-a6fa-63ce441d54f7`)
+- **Live URL:** https://reynahouseai-v3.netlify.app
+- **Netlify account slug:** `rafaelereyna` (team name: "Reyna Legacy")
+- **Build command:** `npm run build` | **Publish dir:** `dist`
+- CI/CD not yet connected — currently using manual `netlify deploy --prod --dir=dist`
+
 ---
 
 ## Issue Log

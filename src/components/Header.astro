@@ -1,11 +1,15 @@
 ---
 // Header component — Phase B
+import { Image } from 'astro:assets';
+import logo from '../assets/images/ReynaHouseFirstLogo.png';
 ---
 
 <header id="header" class="header">
   <div class="header__inner">
-    <!-- TODO: Replace with actual crown logo SVG -->
-    <a href="/" class="header__logo">REYNA HOUSE AI</a>
+    <a href="/" class="header__logo">
+      <Image src={logo} alt="Reyna House AI" width={40} height={40} />
+      <span>REYNA HOUSE AI</span>
+    </a>
 
     <button class="header__hamburger" aria-label="Toggle navigation" aria-expanded="false">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -52,6 +56,13 @@
     font-weight: 400;
     letter-spacing: 0.05em;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header__logo img {
+    border-radius: 50%;
   }
 
   .header__hamburger {
