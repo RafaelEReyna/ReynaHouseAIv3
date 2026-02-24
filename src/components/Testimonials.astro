@@ -1,0 +1,165 @@
+---
+// Testimonials component — Phase H
+---
+
+<section id="testimonials" class="testimonials" data-animate>
+  <div class="testimonials__container">
+    <span class="testimonials__overline">WHAT CLIENTS SAY</span>
+
+    <h2 class="testimonials__headline">Don't Take Our Word for It.</h2>
+
+    <div class="testimonials__grid">
+      <!-- Card 1 -->
+      <!-- TODO: Replace with first real Google review text and reviewer name -->
+      <div class="testimonials__card" data-animate style="transition-delay: 0s">
+        <div class="testimonials__stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonials__quote">TODO: Add first Google review text here.</p>
+        <span class="testimonials__name">TODO: Reviewer Name</span>
+        <span class="testimonials__verified">Verified Google Review</span>
+      </div>
+
+      <!-- Card 2 -->
+      <!-- TODO: Replace with second real Google review text and reviewer name -->
+      <div class="testimonials__card" data-animate style="transition-delay: 0.1s">
+        <div class="testimonials__stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonials__quote">TODO: Add second Google review text here.</p>
+        <span class="testimonials__name">TODO: Reviewer Name</span>
+        <span class="testimonials__verified">Verified Google Review</span>
+      </div>
+    </div>
+
+    <div class="testimonials__summary">
+      <p class="testimonials__rating">&#11088;&#11088;&#11088;&#11088;&#11088; 5.0 on Google</p>
+      <p class="testimonials__earn">We earn every review.</p>
+      <!-- TODO: Replace # with real Google Business profile URL -->
+      <a href="#" class="testimonials__google-link">View on Google &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background-color: var(--cream);
+    padding: 100px 24px;
+  }
+
+  .testimonials__container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .testimonials__overline {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+
+  .testimonials__headline {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 48px;
+  }
+
+  /* Testimonial card */
+  .testimonials__card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 32px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    text-align: left;
+  }
+
+  .testimonials__stars {
+    color: var(--gold);
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .testimonials__quote {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .testimonials__name {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--copper);
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+
+  .testimonials__verified {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--tan);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Summary section below cards */
+  .testimonials__summary {
+    text-align: center;
+  }
+
+  .testimonials__rating {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  .testimonials__earn {
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .testimonials__google-link {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--copper);
+    border: 2px solid var(--copper);
+    padding: 10px 24px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .testimonials__google-link:hover {
+    background-color: var(--copper);
+    color: var(--white);
+  }
+
+  .testimonials__google-link:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

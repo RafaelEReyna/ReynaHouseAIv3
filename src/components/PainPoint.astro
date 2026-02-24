@@ -1,0 +1,151 @@
+---
+// PainPoint component — Phase D
+---
+
+<section id="pain-point" class="pain-point" data-animate>
+  <div class="pain-point__container">
+    <span class="pain-point__overline">SOUND FAMILIAR?</span>
+
+    <h2 class="pain-point__headline">
+      You're On the Job.<br />
+      Your Phone Rings. You Can't Answer.<br />
+      That Was a $10,000 Job Walking Out the Door.
+    </h2>
+
+    <div class="pain-point__body">
+      <p>General contractors don't lose jobs because of bad work. They lose jobs because they were too busy doing the work to answer the phone.</p>
+      <p>No website. No follow-up. No second chance. The guy who answered his phone got the job.</p>
+      <p class="pain-point__bold">We fix that.</p>
+    </div>
+
+    <div class="pain-point__grid">
+      <!-- Card 1: Missed Calls -->
+      <div class="pain-point__card">
+        <svg class="pain-point__icon" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <rect x="10" y="6" width="28" height="36" rx="4" stroke="var(--copper)" stroke-width="2.5"/>
+          <line x1="20" y1="36" x2="28" y2="36" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="18" y1="16" x2="30" y2="28" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="30" y1="16" x2="18" y2="28" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h3 class="pain-point__card-title">Missed Calls</h3>
+        <p class="pain-point__card-text">Lost jobs before you even knew they called.</p>
+      </div>
+
+      <!-- Card 2: Invoice Chaos -->
+      <div class="pain-point__card">
+        <svg class="pain-point__icon" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <rect x="8" y="4" width="24" height="32" rx="2" stroke="var(--copper)" stroke-width="2.5"/>
+          <rect x="16" y="12" width="24" height="32" rx="2" stroke="var(--copper)" stroke-width="2.5"/>
+          <line x1="22" y1="22" x2="34" y2="22" stroke="var(--copper)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="28" x2="34" y2="28" stroke="var(--copper)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="34" x2="30" y2="34" stroke="var(--copper)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3 class="pain-point__card-title">Invoice Chaos</h3>
+        <p class="pain-point__card-text">Buried in paperwork instead of on the job.</p>
+      </div>
+
+      <!-- Card 3: No-Shows & Scheduling -->
+      <div class="pain-point__card">
+        <svg class="pain-point__icon" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <rect x="6" y="10" width="36" height="32" rx="3" stroke="var(--copper)" stroke-width="2.5"/>
+          <line x1="6" y1="18" x2="42" y2="18" stroke="var(--copper)" stroke-width="2.5"/>
+          <line x1="16" y1="6" x2="16" y2="14" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="32" y1="6" x2="32" y2="14" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="18" y1="26" x2="30" y2="36" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="30" y1="26" x2="18" y2="36" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h3 class="pain-point__card-title">No-Shows & Scheduling</h3>
+        <p class="pain-point__card-text">Appointments that ghost. Time you'll never get back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pain-point {
+    background-color: var(--cream);
+    padding: 100px 24px;
+  }
+
+  .pain-point__container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .pain-point__overline {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+
+  .pain-point__headline {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 32px;
+  }
+
+  .pain-point__body {
+    max-width: 600px;
+    margin: 0 auto 48px;
+  }
+
+  .pain-point__body p {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .pain-point__bold {
+    font-weight: 700;
+    font-size: 1.2rem !important;
+    margin-top: 8px;
+  }
+
+  .pain-point__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .pain-point__card {
+    background: var(--white);
+    border: 1px solid var(--tan);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .pain-point__icon {
+    margin: 0 auto 16px;
+  }
+
+  .pain-point__card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  .pain-point__card-text {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 767px) {
+    .pain-point__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

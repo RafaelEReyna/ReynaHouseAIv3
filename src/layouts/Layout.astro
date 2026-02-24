@@ -1,0 +1,113 @@
+---
+import '../styles/fonts.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#334668" />
+
+    <!-- SEO -->
+    <title>{title} | Reyna House AI</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reynahouse.ai" />
+    <meta property="og:image" content="https://reynahouse.ai/images/og-image.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+
+    <!-- Calendly CSS -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+
+    <!-- LocalBusiness JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Reyna House AI",
+      "url": "https://reynahouse.ai",
+      "description": "Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Big Bear Lake",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "areaServed": ["California", "Nationwide"],
+      "serviceType": ["Web Design", "AI Automation", "Landing Pages"]
+    })} />
+
+    <!-- FAQ JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I own my website if Reyna House builds it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You get the code, the domain, and the hosting. It's yours completely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to build a website?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most landing pages are live within 2 weeks of our first call."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work with general contractors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. General contractors are our specialty. We understand you're on job sites, not behind a desk."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the cost of a website from Reyna House AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every project is scoped individually. Book a free 15-minute call and we'll give you an exact number."
+          }
+        }
+      ]
+    })} />
+
+    <!-- Scroll animations -->
+    <script src="/js/scroll-observer.js" defer></script>
+
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- TODO: Add GA4 tracking ID once property is created -->
+    <!-- TODO: Uncomment for Plausible: <script defer data-domain='reynahouse.ai' src='https://plausible.io/js/plausible.js'></script> -->
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

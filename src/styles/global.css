@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* ===================================
+   Brand Color Palette — Reyna House AI
+   =================================== */
+:root {
+  --navy: #334668;
+  --copper: #C9944D;
+  --forest: #243B28;
+  --cream: #EDEAE0;
+  --tan: #BFA984;
+  --gold: #E1B444;
+  --white: #F8F6F0;
+  --dark: #1A1A1A;
+}
+
+/* Base reset — no pure black or white */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--dark);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Scroll-triggered fade-in animations */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

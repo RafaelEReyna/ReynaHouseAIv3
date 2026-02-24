@@ -1,0 +1,155 @@
+---
+// Header component — Phase B
+---
+
+<header id="header" class="header">
+  <div class="header__inner">
+    <!-- TODO: Replace with actual crown logo SVG -->
+    <a href="/" class="header__logo">REYNA HOUSE AI</a>
+
+    <button class="header__hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+
+    <nav class="header__nav" id="nav-menu">
+      <a href="#hero" class="header__link">Home</a>
+      <a href="#portfolio" class="header__link">Work</a>
+      <a href="#services" class="header__link">Services</a>
+      <a href="#pricing" class="header__link">Pricing</a>
+      <a href="#about" class="header__link">About</a>
+      <a href="#contact" class="header__cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--navy);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header__logo {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .header__hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .header__link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: var(--white);
+    transition: color 0.2s ease;
+  }
+
+  .header__link:hover,
+  .header__link:focus-visible {
+    color: var(--copper);
+  }
+
+  .header__link:focus-visible,
+  .header__cta:focus-visible,
+  .header__hamburger:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
+
+  .header__cta {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--white);
+    background-color: var(--copper);
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .header__cta:hover {
+    background-color: #b8843f;
+  }
+
+  /* Mobile: <768px */
+  @media (max-width: 767px) {
+    .header__hamburger {
+      display: block;
+    }
+
+    .header__nav {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background-color: var(--navy);
+      padding: 16px 24px 24px;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .header__nav.is-open {
+      display: flex;
+    }
+
+    .header__cta {
+      text-align: center;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const hamburger = document.querySelector('.header__hamburger');
+  const nav = document.getElementById('nav-menu');
+
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close mobile menu when a nav link is clicked
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

@@ -1,0 +1,190 @@
+---
+// Services component — Phase E
+---
+
+<section id="services" class="services" data-animate>
+  <div class="services__container">
+    <span class="services__overline">WHAT WE BUILD</span>
+
+    <h2 class="services__headline">Start Simple. Grow When You're Ready.</h2>
+
+    <p class="services__intro">
+      We start where you need us. A clean landing page that gets you found and gets you called. Then when you're ready — automation that handles the stuff you hate doing.
+    </p>
+
+    <div class="services__grid">
+      <!-- Card 1: Your Landing Page (active) -->
+      <div class="services__card" data-animate style="transition-delay: 0s">
+        <svg class="services__icon" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <rect x="6" y="14" width="36" height="28" rx="3" stroke="var(--copper)" stroke-width="2.5"/>
+          <polyline points="6,14 24,4 42,14" stroke="var(--copper)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="19" y="28" width="10" height="14" rx="1" stroke="var(--copper)" stroke-width="2"/>
+          <line x1="13" y1="24" x2="17" y2="24" stroke="var(--copper)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="13" y1="28" x2="17" y2="28" stroke="var(--copper)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3 class="services__card-title">Your Landing Page</h3>
+        <p class="services__card-body">
+          A fast, mobile-ready page with your services, photos, contact form, and Google Maps. Clean. Professional. Yours.
+        </p>
+        <span class="services__badge services__badge--popular">Most Popular for New Clients</span>
+      </div>
+
+      <!-- Card 2: Missed Call Automation (coming soon) -->
+      <div class="services__card services__card--soon" style="transition-delay: 0.1s">
+        <svg class="services__icon" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="16" stroke="var(--tan)" stroke-width="2.5"/>
+          <circle cx="24" cy="24" r="6" stroke="var(--tan)" stroke-width="2.5"/>
+          <line x1="24" y1="8" x2="24" y2="12" stroke="var(--tan)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="24" y1="36" x2="24" y2="40" stroke="var(--tan)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="24" x2="12" y2="24" stroke="var(--tan)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="36" y1="24" x2="40" y2="24" stroke="var(--tan)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3 class="services__card-title services__card-title--muted">Missed Call Automation</h3>
+        <p class="services__card-body">
+          Every missed call gets an instant text: "Hey, we got your message — we'll call you right back." No more leads going cold.
+        </p>
+        <span class="services__badge services__badge--soon">Coming Soon</span>
+      </div>
+
+      <!-- Card 3: Full AI Automation (coming soon) -->
+      <div class="services__card services__card--soon" style="transition-delay: 0.2s">
+        <svg class="services__icon" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M24 6 L28 18 L42 18 L30 26 L34 38 L24 30 L14 38 L18 26 L6 18 L20 18 Z" stroke="var(--tan)" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="24" y1="38" x2="24" y2="44" stroke="var(--tan)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="18" y1="44" x2="30" y2="44" stroke="var(--tan)" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h3 class="services__card-title services__card-title--muted">Full AI Automation</h3>
+        <p class="services__card-body">
+          AI that books appointments, follows up on estimates, and keeps your calendar full — while you're on the job.
+        </p>
+        <span class="services__badge services__badge--soon">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background-color: var(--cream);
+    padding: 100px 24px;
+  }
+
+  .services__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .services__overline {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+
+  .services__headline {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .services__intro {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto 48px;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  /* Base card */
+  .services__card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .services__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Coming Soon desaturated state — uses filter instead of opacity to avoid conflict with data-animate */
+  .services__card--soon {
+    filter: saturate(0.4) brightness(0.85);
+  }
+
+  .services__card--soon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  }
+
+  .services__icon {
+    margin-bottom: 20px;
+  }
+
+  .services__card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+
+  .services__card-title--muted {
+    color: rgba(51, 70, 104, 0.7);
+  }
+
+  .services__card-body {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  /* Badge base */
+  .services__badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+
+  .services__badge--popular {
+    background-color: var(--forest);
+    color: var(--white);
+  }
+
+  .services__badge--soon {
+    background-color: rgba(36, 59, 40, 0.8);
+    color: var(--white);
+  }
+
+  @media (max-width: 767px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

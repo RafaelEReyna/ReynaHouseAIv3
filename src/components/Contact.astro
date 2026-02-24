@@ -1,0 +1,354 @@
+---
+// Contact component — Phase I
+---
+
+<section id="contact" class="contact" data-animate>
+  <div class="contact__container">
+    <span class="contact__overline">LET'S GET TO WORK</span>
+
+    <h2 class="contact__headline">
+      Ready to Stop Losing Leads?<br />Let's Talk.
+    </h2>
+
+    <p class="contact__subheadline">
+      Book a free 15-minute call. No pitch. No pressure. Just a real conversation about what you need.
+    </p>
+
+    <div class="contact__columns">
+      <!-- LEFT COLUMN — Contact Info -->
+      <div class="contact__info">
+        <a href="mailto:edward@reynahouse.ai" class="contact__email">edward@reynahouse.ai</a>
+        <p class="contact__location">Big Bear Lake, CA — Serving clients nationwide</p>
+        <p class="contact__response">Reply within 6 hours (usually faster)</p>
+
+        <h3 class="contact__steps-heading">What happens next?</h3>
+        <ol class="contact__steps">
+          <li>You book a 15-minute call</li>
+          <li>We talk about what you need</li>
+          <li>I send you a proposal with exact pricing</li>
+          <li>We build it</li>
+        </ol>
+      </div>
+
+      <!-- RIGHT COLUMN — Calendly Embed -->
+      <div class="contact__booking">
+        <!-- TODO: Replace YOUR-USERNAME with real Calendly username -->
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/YOUR-USERNAME/15min"
+          style="min-width:320px;height:630px;"
+          aria-label="Schedule a call with Reyna House AI"
+        ></div>
+        <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </div>
+    </div>
+
+    <!-- Below Calendly -->
+    <p class="contact__form-intro">Prefer to write it out? Use the form below.</p>
+
+    <!-- Netlify Contact Form -->
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      action="/?submitted=true"
+      class="contact__form"
+      id="contact-form"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+
+      <div class="contact__field">
+        <label for="name">Your Name *</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div class="contact__field">
+        <label for="business">Business Name</label>
+        <input type="text" id="business" name="business" />
+      </div>
+
+      <div class="contact__field">
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" required />
+      </div>
+
+      <div class="contact__field">
+        <label for="best-time">Best Time to Call</label>
+        <input type="text" id="best-time" name="best-time" placeholder="e.g. Weekday mornings" />
+      </div>
+
+      <div class="contact__field">
+        <label for="need">What do you need?</label>
+        <select id="need" name="need">
+          <option value="" disabled selected>Select one…</option>
+          <option value="New Website">New Website</option>
+          <option value="Automation">Automation</option>
+          <option value="Both">Both</option>
+          <option value="Not Sure Yet">Not Sure Yet</option>
+        </select>
+      </div>
+
+      <div class="contact__field contact__field--full">
+        <label for="message">Tell me more</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="contact__submit">Send It &rarr;</button>
+    </form>
+
+    <!-- Success message -->
+    <div id="form-success" class="contact__success" style="display:none;">
+      Got it. I'll reach out within 6 hours. — Edward
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Show success message after Netlify form submission
+  if (window.location.search.includes('submitted=true')) {
+    var form = document.getElementById('contact-form');
+    var success = document.getElementById('form-success');
+    if (form) form.style.display = 'none';
+    if (success) success.style.display = 'block';
+  }
+</script>
+
+<style>
+  .contact {
+    background: linear-gradient(135deg, #334668 0%, #1a1a2e 100%);
+    padding: 100px 24px;
+  }
+
+  .contact__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact__overline {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+
+  .contact__headline {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--white);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .contact__subheadline {
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 48px;
+  }
+
+  /* Two-column layout */
+  .contact__columns {
+    display: flex;
+    gap: 48px;
+    text-align: left;
+    margin-bottom: 48px;
+  }
+
+  /* Left column — info */
+  .contact__info {
+    flex: 1 1 40%;
+  }
+
+  .contact__email {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    color: var(--copper);
+    margin-bottom: 12px;
+    transition: opacity 0.2s ease;
+  }
+
+  .contact__email:hover {
+    opacity: 0.8;
+  }
+
+  .contact__location {
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .contact__response {
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+
+  .contact__steps-heading {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+  }
+
+  .contact__steps {
+    list-style: none;
+    counter-reset: steps;
+    padding: 0;
+  }
+
+  .contact__steps li {
+    counter-increment: steps;
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-size: 0.95rem;
+    padding: 8px 0;
+    padding-left: 32px;
+    position: relative;
+  }
+
+  .contact__steps li::before {
+    content: counter(steps) ".";
+    position: absolute;
+    left: 0;
+    color: var(--copper);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+  }
+
+  /* Right column — Calendly */
+  .contact__booking {
+    flex: 1 1 55%;
+    min-width: 320px;
+  }
+
+  /* Form intro text */
+  .contact__form-intro {
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+  }
+
+  /* Form */
+  .contact__form {
+    max-width: 640px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    text-align: left;
+  }
+
+  .contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact__field--full {
+    grid-column: 1 / -1;
+  }
+
+  .contact__field label {
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-size: 0.85rem;
+  }
+
+  .contact__field input,
+  .contact__field select,
+  .contact__field textarea {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--white);
+    background: rgba(51, 70, 104, 0.4);
+    border: 1px solid var(--tan);
+    border-radius: 6px;
+    padding: 12px;
+    transition: border-color 0.2s ease;
+  }
+
+  .contact__field input::placeholder,
+  .contact__field textarea::placeholder {
+    color: rgba(191, 169, 132, 0.6);
+  }
+
+  .contact__field input:focus,
+  .contact__field select:focus,
+  .contact__field textarea:focus {
+    outline: none;
+    border-color: var(--copper);
+  }
+
+  .contact__field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23BFA984' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+
+  .contact__field select option {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .contact__submit {
+    grid-column: 1 / -1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    background-color: var(--copper);
+    border: none;
+    border-radius: 6px;
+    padding: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .contact__submit:hover {
+    background-color: #b8843f;
+  }
+
+  .contact__submit:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
+
+  /* Success message */
+  .contact__success {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--gold);
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 767px) {
+    .contact__columns {
+      flex-direction: column;
+    }
+
+    .contact__form {
+      grid-template-columns: 1fr;
+    }
+
+    .contact__field--full {
+      grid-column: 1;
+    }
+  }
+</style>

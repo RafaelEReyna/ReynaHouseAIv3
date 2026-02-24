@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import PainPoint from '../components/PainPoint.astro';
+import Difference from '../components/Difference.astro';
+import Services from '../components/Services.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Pricing from '../components/Pricing.astro';
+import About from '../components/About.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Websites & AI Automation for Contractors"
+  description="Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom. Based in Big Bear Lake, CA."
+>
+  <Header />
+
+  <main>
+    <Hero />
+    <PainPoint />
+    <Difference />
+    <Services />
+    <Portfolio />
+    <Pricing />
+    <About />
+    <Testimonials />
+    <Contact />
+  </main>
+
+  <!-- FAQ Section — visible for users, rich for crawlers -->
+  <section id="faq" class="faq">
+    <div class="faq__container">
+      <h2 class="faq__headline">Frequently Asked Questions</h2>
+
+      <details class="faq__item">
+        <summary class="faq__question">Do I own my website if Reyna House builds it?</summary>
+        <p class="faq__answer">Yes. You get the code, the domain, and the hosting. It's yours completely.</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__question">How long does it take to build a website?</summary>
+        <p class="faq__answer">Most landing pages are live within 2 weeks of our first call.</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__question">Do you work with general contractors?</summary>
+        <p class="faq__answer">Yes. General contractors are our specialty. We understand you're on job sites, not behind a desk.</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__question">What is the cost of a website from Reyna House AI?</summary>
+        <p class="faq__answer">Every project is scoped individually. Book a free 15-minute call and we'll give you an exact number.</p>
+      </details>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .faq {
+    background-color: var(--cream);
+    padding: 60px 24px;
+  }
+
+  .faq__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq__headline {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--tan);
+    padding: 16px 0;
+  }
+
+  .faq__question {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    font-size: 0.95rem;
+    cursor: pointer;
+    list-style: none;
+    padding: 4px 0;
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__question::before {
+    content: '+ ';
+    font-weight: 700;
+  }
+
+  details[open] .faq__question::before {
+    content: '− ';
+  }
+
+  .faq__answer {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding: 12px 0 4px;
+  }
+</style>

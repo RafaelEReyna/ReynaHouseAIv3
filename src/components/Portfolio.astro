@@ -1,0 +1,252 @@
+---
+// Portfolio component — Phase F
+---
+
+<section id="portfolio" class="portfolio" data-animate>
+  <div class="portfolio__container">
+    <span class="portfolio__overline">OUR WORK</span>
+
+    <h2 class="portfolio__headline">Real Sites. Real Businesses. Real Results.</h2>
+
+    <div class="portfolio__grid">
+      <!-- Card 1 -->
+      <div class="portfolio__card" data-animate style="transition-delay: 0s">
+        <!-- TODO: Replace with real screenshot of Big Bear Hair Salon site -->
+        <div class="portfolio__image-wrap">
+          <img
+            src="https://placehold.co/600x400/334668/EDEAE0?text=Site+Screenshot"
+            alt="Big Bear Hair Salon website screenshot"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+        <div class="portfolio__card-body">
+          <span class="portfolio__tag">Landing Page</span>
+          <h3 class="portfolio__card-title">Big Bear Hair Salon</h3>
+          <p class="portfolio__card-desc">Booking form, services, gallery</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="portfolio__card" data-animate style="transition-delay: 0.1s">
+        <!-- TODO: Replace with real screenshot of LA Notary Public site -->
+        <div class="portfolio__image-wrap">
+          <img
+            src="https://placehold.co/600x400/334668/EDEAE0?text=Site+Screenshot"
+            alt="LA Notary Public website screenshot"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+        <div class="portfolio__card-body">
+          <span class="portfolio__tag">Professional Services</span>
+          <h3 class="portfolio__card-title">LA Notary Public</h3>
+          <p class="portfolio__card-desc">Clean, credible, converts</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="portfolio__card" data-animate style="transition-delay: 0.2s">
+        <!-- TODO: Replace with real screenshot of Van Nuys Maintenance Co. site -->
+        <div class="portfolio__image-wrap">
+          <img
+            src="https://placehold.co/600x400/334668/EDEAE0?text=Site+Screenshot"
+            alt="Van Nuys Maintenance Co. website screenshot"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+        <div class="portfolio__card-body">
+          <span class="portfolio__tag">Service Business</span>
+          <h3 class="portfolio__card-title">Van Nuys Maintenance Co.</h3>
+          <p class="portfolio__card-desc">Services, contact, local SEO</p>
+        </div>
+      </div>
+
+      <!-- Card 4 — DEMO (special treatment) -->
+      <div class="portfolio__card portfolio__card--demo" data-animate style="transition-delay: 0.3s">
+        <div class="portfolio__image-wrap">
+          <img
+            src="https://placehold.co/600x400/C9944D/EDEAE0?text=Your+Site+Here"
+            alt="Demo website — your business could look like this"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+        <div class="portfolio__card-body">
+          <span class="portfolio__tag portfolio__tag--demo">&#11088; Demo — This Could Be You</span>
+          <h3 class="portfolio__card-title portfolio__card-title--demo">Bear Valley Builders — Big Bear, CA</h3>
+          <p class="portfolio__card-desc">Built to show what's possible for local GCs</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio__cta-wrap">
+      <p class="portfolio__cta-text">Your business could be next.</p>
+      <a href="#contact" class="portfolio__cta-button">Let's Build Yours &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio {
+    background-color: #1a1f2e;
+    padding: 100px 24px;
+  }
+
+  .portfolio__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .portfolio__overline {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+
+  .portfolio__headline {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--white);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+
+  /* 2x2 grid */
+  .portfolio__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 48px;
+  }
+
+  /* Base card */
+  .portfolio__card {
+    background: #232a3a;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .portfolio__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Demo card — copper glow */
+  .portfolio__card--demo {
+    border: 2px solid var(--copper);
+    box-shadow: 0 0 24px rgba(201, 148, 77, 0.3);
+  }
+
+  .portfolio__card--demo:hover {
+    box-shadow: 0 0 32px rgba(201, 148, 77, 0.45);
+  }
+
+  .portfolio__image-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .portfolio__image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .portfolio__card:hover .portfolio__image-wrap img {
+    transform: scale(1.03);
+  }
+
+  .portfolio__card-body {
+    padding: 20px 24px 24px;
+  }
+
+  /* Tag pill */
+  .portfolio__tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--copper);
+    background: var(--navy);
+    border-radius: 4px;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .portfolio__tag--demo {
+    background: var(--copper);
+    color: var(--white);
+  }
+
+  .portfolio__card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--white);
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+
+  .portfolio__card-title--demo {
+    color: var(--copper);
+  }
+
+  .portfolio__card-desc {
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* Below-grid CTA */
+  .portfolio__cta-wrap {
+    text-align: center;
+  }
+
+  .portfolio__cta-text {
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-style: italic;
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+  }
+
+  .portfolio__cta-button {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--white);
+    background-color: var(--copper);
+    padding: 14px 28px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+  }
+
+  .portfolio__cta-button:hover {
+    background-color: #b8843f;
+  }
+
+  .portfolio__cta-button:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .portfolio__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

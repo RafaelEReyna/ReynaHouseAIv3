@@ -1,0 +1,231 @@
+---
+// Hero component — Phase C
+---
+
+<section id="hero" class="hero">
+  <div class="hero__inner">
+    <!-- Left Column — Content -->
+    <div class="hero__content">
+      <span class="hero__overline">REYNA HOUSE AI — BIG BEAR LAKE, CA</span>
+
+      <h1 class="hero__headline">
+        Your Contractors Are Calling.<br />Are You Answering?
+      </h1>
+
+      <p class="hero__subheadline">
+        We build websites that work while you're on the job site. And automations that make sure no lead slips through the cracks.
+      </p>
+
+      <div class="hero__ctas">
+        <a href="#contact" class="hero__cta-primary">Book a Free 15-Minute Call &rarr;</a>
+        <a href="#portfolio" class="hero__cta-secondary">See Our Work &darr;</a>
+      </div>
+
+      <div class="hero__trust-bar">
+        <div class="hero__trust-item">
+          <!-- Shield icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>You Own It. Always.</span>
+        </div>
+        <div class="hero__trust-item">
+          <!-- Checkmark icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <span>Built in the USA</span>
+        </div>
+        <div class="hero__trust-item">
+          <!-- Clock icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>Live in 2 Weeks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column — Decorative -->
+    <div class="hero__decorative">
+      <!-- TODO: Replace right panel with real photography when available -->
+      <span class="hero__monogram">RH</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, #334668 0%, #1a1a2e 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* SVG noise texture overlay */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 24px 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 64px;
+  }
+
+  .hero__content {
+    flex: 1 1 55%;
+  }
+
+  .hero__overline {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+
+  .hero__headline {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--copper);
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .hero__subheadline {
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .hero__cta-primary {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--white);
+    background-color: var(--copper);
+    padding: 14px 28px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+  }
+
+  .hero__cta-primary:hover {
+    background-color: #b8843f;
+  }
+
+  .hero__cta-primary:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
+
+  .hero__cta-secondary {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--tan);
+    transition: color 0.2s ease;
+  }
+
+  .hero__cta-secondary:hover {
+    color: var(--copper);
+  }
+
+  .hero__trust-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .hero__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero__trust-item span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--tan);
+  }
+
+  /* Right decorative column */
+  .hero__decorative {
+    flex: 1 1 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    background: radial-gradient(circle at center, rgba(201, 148, 77, 0.1) 0%, transparent 70%);
+    border-radius: 12px;
+  }
+
+  .hero__monogram {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 15vw, 14rem);
+    color: var(--copper);
+    opacity: 0.08;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* Mobile: single column, centered */
+  @media (max-width: 767px) {
+    .hero__inner {
+      flex-direction: column;
+      padding: 100px 24px 60px;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .hero__content {
+      flex: 1 1 100%;
+    }
+
+    .hero__subheadline {
+      max-width: 100%;
+    }
+
+    .hero__ctas {
+      align-items: center;
+    }
+
+    .hero__trust-bar {
+      justify-content: center;
+    }
+
+    .hero__decorative {
+      display: none;
+    }
+  }
+</style>

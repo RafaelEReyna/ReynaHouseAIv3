@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist."
+>
+  <div style={`
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--navy);
+    text-align: center;
+    padding: 2rem;
+  `}>
+    <p style={`
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--copper);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    `}>
+      ERROR 404
+    </p>
+
+    <h1 style={`
+      font-family: 'Bebas Neue', sans-serif;
+      color: var(--copper);
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    `}>
+      Page Not Found.
+    </h1>
+
+    <p style={`
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      max-width: 420px;
+    `}>
+      Looks like this page doesn't exist. Let's get you back on track.
+    </p>
+
+    <a
+      href="/"
+      style={`
+        display: inline-block;
+        background-color: var(--copper);
+        color: var(--white);
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        padding: 14px 28px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: opacity 0.2s ease;
+      `}
+    >
+      Back to Home &rarr;
+    </a>
+  </div>
+</Layout>
