@@ -1,5 +1,7 @@
 ---
 // Hero component — Phase C
+import { Image } from 'astro:assets';
+import logo from '../assets/images/ReynaHouseFirstLogo.png';
 ---
 
 <section id="hero" class="hero">
@@ -50,8 +52,7 @@
 
     <!-- Right Column — Decorative -->
     <div class="hero__decorative">
-      <!-- TODO: Replace right panel with real photography when available -->
-      <span class="hero__monogram">RH</span>
+      <Image src={logo} alt="" width={280} height={280} class="hero__logo-decorative" aria-hidden="true" />
     </div>
   </div>
 </section>
@@ -190,13 +191,13 @@
     border-radius: 12px;
   }
 
-  .hero__monogram {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(8rem, 15vw, 14rem);
-    color: var(--copper);
-    opacity: 0.08;
+  .hero__logo-decorative {
+    width: clamp(200px, 20vw, 280px);
+    height: auto;
+    opacity: 0.15;
+    filter: drop-shadow(0 0 40px rgba(201, 148, 77, 0.3));
     user-select: none;
-    line-height: 1;
+    pointer-events: none;
   }
 
   /* Mobile: single column, centered */
