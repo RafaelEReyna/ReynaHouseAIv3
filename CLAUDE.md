@@ -120,7 +120,7 @@
 - **Cause:** The provided URL looked unwieldy and was assumed to be a transient/session-specific URL. Replaced it with a "cleaner" version without checking if the original had functional value.
 - **Fix:** Should use user's direct URL or ask for their Google Maps / `g.page` short link.
 - **Prevention:** Don't "clean up" URLs the user provides without understanding what each parameter does. If unsure, ask.
-- **Status:** NOT FIXED — Currently using generic search URL. Needs direct Google Business profile link.
+- **Status:** FIXED — Replaced with user's direct Google Maps reviews URL in both Testimonials.astro and Footer.astro.
 
 #### 15. Attempted to `cp` from iCloud and Google Drive paths
 - **What happened:** Tried to copy the user's photo from `~/Library/Mobile Documents/com~apple~CloudDocs/` and logo from `~/My Drive/`. Both were rejected — these paths require permissions this terminal doesn't have.
@@ -134,18 +134,56 @@
 - **Cause:** Oversight — didn't check for `.DS_Store` after new directory was populated.
 - **Fix:** Add `.DS_Store` to `.gitignore`.
 - **Prevention:** Always add `.DS_Store` to `.gitignore` in macOS projects. Check for it whenever new directories are created.
-- **Status:** NOT FIXED — `.DS_Store` still not in `.gitignore`.
+- **Status:** FIXED — `.DS_Store` added to `.gitignore`.
 
 #### 17. Logo PNG has opaque background on dark surfaces
 - **What happened:** The Reyna House logo PNG has a light gray circular background. It was placed directly into the navy header and near-black footer without flagging that the light circle would be visible against dark backgrounds.
 - **Cause:** Didn't inspect the image's transparency characteristics before integrating it. Assumed it would look fine.
-- **Fix:** Either use a version of the logo with a transparent background, or accept the light circle as intentional branding.
+- **Fix:** Tried swapping to a transparent-background version, but it looked worse — dark logo elements blended into dark backgrounds. Reverted to original with circle.
 - **Prevention:** When integrating logos or icons, check whether the image has transparency and consider how it will render against the target background color. Flag potential issues to the user before deploying.
-- **Status:** NOT FIXED — Needs user decision on whether the light circle background is intentional.
+- **Status:** ACCEPTED — User keeping the circle background version. Logo redesign planned separately.
 
 #### 18. Photo crop not verified
 - **What happened:** Edward's headshot was set to `400x480` (5:6 ratio) with `object-fit: cover` and `object-position: center top`. The original photo has a different aspect ratio, meaning parts of the image are cropped. Did not preview or mention what would be cut off.
 - **Cause:** Assumed `center top` positioning would frame the subject well without verifying.
 - **Fix:** User should review the live site and confirm the crop is acceptable. Adjust `object-position` or dimensions if needed.
 - **Prevention:** When cropping user photos via CSS, mention what will be cut and offer to adjust positioning.
-- **Status:** NOT VERIFIED — Needs user review on live site.
+- **Status:** VERIFIED — User confirmed crop is fine.
+
+### Phase M — Polish & Portfolio Integration
+
+#### 19. Transparent logo swap deployed without previewing
+- **What happened:** Swapped the circle-background logo for a transparent-background version assuming it would look better on dark surfaces. Deployed to production without previewing. The dark logo elements blended into the dark header/footer and looked worse than the original.
+- **Cause:** Assumed removing the background would automatically improve the look. Deployed without checking.
+- **Fix:** Reverted to the original circle-background logo.
+- **Prevention:** Don't assume a design change will improve things. Preview locally or flag the tradeoff to the user before deploying to production.
+
+#### 20. Playwright `--full-page` captured entire scrollable page, not viewport
+- **What happened:** Used `npx playwright screenshot --full-page` to capture client site screenshots for portfolio cards. This captured the entire scrollable page height — producing extremely tall, vertically elongated images (e.g., HER Maintenance at 1369KB). These destroyed the portfolio card layout.
+- **Cause:** Used `--full-page` flag without considering that portfolio cards need landscape/viewport-sized thumbnails, not full-page captures.
+- **Fix:** User took their own viewport-only hero screenshots and placed them in the project.
+- **Prevention:** For portfolio card thumbnails, capture at viewport size only (omit `--full-page`), or crop to a fixed aspect ratio after capture. Check the first screenshot's dimensions before capturing all three.
+
+#### 21. No fixed height constraint on portfolio image containers
+- **What happened:** Portfolio card image containers used `height: auto`, letting source images dictate card proportions. Even with proper screenshots, cards could end up inconsistent sizes.
+- **Cause:** Original CSS didn't enforce a fixed image area height — relied on source images being the right aspect ratio.
+- **Fix:** Added `height: 220px` to `.portfolio__image-wrap` with `object-fit: cover` and `object-position: top` on the images.
+- **Prevention:** When building image card grids, always constrain the image container height. Don't rely on source images being the right aspect ratio.
+
+#### 22. Hero "RH" monogram was nearly invisible at 8% opacity
+- **What happened:** The decorative "RH" text in the hero right column was set to `opacity: 0.08` — so faint it looked like a rendering artifact rather than an intentional design element. User described it as "a hazy blur."
+- **Cause:** Set opacity too low during the original build. Not caught during the polish phase.
+- **Fix:** Replaced the text monogram with the actual logo image at 15% opacity with a copper drop-shadow glow.
+- **Prevention:** If a decorative element is meant to be noticed, 8% opacity is too low. Preview decorative elements against their actual backgrounds.
+
+#### 23. Didn't push to GitHub alongside Netlify deploys
+- **What happened:** Deployed to Netlify multiple times without pushing to GitHub. User had to ask "push to GitHub" separately after each deploy.
+- **Cause:** Treated Netlify deploy and GitHub push as separate steps instead of a single "ship" action.
+- **Prevention:** When deploying, always push to both Netlify and GitHub in the same step. Don't wait to be asked twice.
+
+#### 24. Old full-page screenshot PNGs left in repo after replacement
+- **What happened:** The three Playwright-captured full-page PNGs (`portfolio-village-hairsmith.png`, `portfolio-rosa-notary.png`, `portfolio-her-maintenance.png`) are still in `src/assets/images/` — no longer imported by any component but still taking up ~2.6MB in the repository.
+- **Cause:** When replacing asset files with new ones, forgot to delete the old files in the same commit.
+- **Fix:** Delete the unused PNG files.
+- **Prevention:** When replacing asset files, delete the old ones in the same commit. Check for orphaned files after swapping imports.
+- **Status:** NOT FIXED — Old PNGs still in repo.
