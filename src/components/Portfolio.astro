@@ -1,5 +1,9 @@
 ---
 // Portfolio component — Phase F
+import { Image } from 'astro:assets';
+import screenshotVillageHairsmith from '../assets/images/portfolio-village-hairsmith.png';
+import screenshotRosaNotary from '../assets/images/portfolio-rosa-notary.png';
+import screenshotHerMaintenance from '../assets/images/portfolio-her-maintenance.png';
 ---
 
 <section id="portfolio" class="portfolio" data-animate>
@@ -9,62 +13,62 @@
     <h2 class="portfolio__headline">Real Sites. Real Businesses. Real Results.</h2>
 
     <div class="portfolio__grid">
-      <!-- Card 1 -->
-      <div class="portfolio__card" data-animate style="transition-delay: 0s">
-        <!-- TODO: Replace with real screenshot of Big Bear Hair Salon site -->
+      <!-- Card 1 — Village Hairsmith -->
+      <a href="https://villagehairsmith.com" target="_blank" rel="noopener noreferrer" class="portfolio__card" data-animate style="transition-delay: 0s">
         <div class="portfolio__image-wrap">
-          <img
-            src="https://placehold.co/600x400/334668/EDEAE0?text=Site+Screenshot"
-            alt="Big Bear Hair Salon website screenshot"
-            width="600"
-            height="400"
+          <Image
+            src={screenshotVillageHairsmith}
+            alt="Village Hairsmith website screenshot"
+            width={600}
+            height={400}
             loading="lazy"
+            style="object-fit: cover; object-position: top;"
           />
         </div>
         <div class="portfolio__card-body">
           <span class="portfolio__tag">Landing Page</span>
-          <h3 class="portfolio__card-title">Big Bear Hair Salon</h3>
-          <p class="portfolio__card-desc">Booking form, services, gallery</p>
+          <h3 class="portfolio__card-title">Village Hairsmith</h3>
+          <p class="portfolio__card-desc">Click-to-call buttons, services listed, Big Bear Lake</p>
         </div>
-      </div>
+      </a>
 
-      <!-- Card 2 -->
-      <div class="portfolio__card" data-animate style="transition-delay: 0.1s">
-        <!-- TODO: Replace with real screenshot of LA Notary Public site -->
+      <!-- Card 2 — Rosa Notary -->
+      <a href="https://rosanotary.com" target="_blank" rel="noopener noreferrer" class="portfolio__card" data-animate style="transition-delay: 0.1s">
         <div class="portfolio__image-wrap">
-          <img
-            src="https://placehold.co/600x400/334668/EDEAE0?text=Site+Screenshot"
-            alt="LA Notary Public website screenshot"
-            width="600"
-            height="400"
+          <Image
+            src={screenshotRosaNotary}
+            alt="Rosa M. Vaquera-Martinez Notary Public website screenshot"
+            width={600}
+            height={400}
             loading="lazy"
+            style="object-fit: cover; object-position: top;"
           />
         </div>
         <div class="portfolio__card-body">
           <span class="portfolio__tag">Professional Services</span>
-          <h3 class="portfolio__card-title">LA Notary Public</h3>
-          <p class="portfolio__card-desc">Clean, credible, converts</p>
+          <h3 class="portfolio__card-title">Rosa M. Vaquera-Martinez Notary Public</h3>
+          <p class="portfolio__card-desc">Services, pricing, legal info, booking form</p>
         </div>
-      </div>
+      </a>
 
-      <!-- Card 3 -->
-      <div class="portfolio__card" data-animate style="transition-delay: 0.2s">
-        <!-- TODO: Replace with real screenshot of Van Nuys Maintenance Co. site -->
+      <!-- Card 3 — HER Maintenance -->
+      <a href="https://hermaintenance.net" target="_blank" rel="noopener noreferrer" class="portfolio__card" data-animate style="transition-delay: 0.2s">
         <div class="portfolio__image-wrap">
-          <img
-            src="https://placehold.co/600x400/334668/EDEAE0?text=Site+Screenshot"
-            alt="Van Nuys Maintenance Co. website screenshot"
-            width="600"
-            height="400"
+          <Image
+            src={screenshotHerMaintenance}
+            alt="HER Maintenance website screenshot"
+            width={600}
+            height={400}
             loading="lazy"
+            style="object-fit: cover; object-position: top;"
           />
         </div>
         <div class="portfolio__card-body">
           <span class="portfolio__tag">Service Business</span>
-          <h3 class="portfolio__card-title">Van Nuys Maintenance Co.</h3>
-          <p class="portfolio__card-desc">Services, contact, local SEO</p>
+          <h3 class="portfolio__card-title">HER Maintenance</h3>
+          <p class="portfolio__card-desc">Booking form, lead capture, blog, service areas</p>
         </div>
-      </div>
+      </a>
 
       <!-- Card 4 — DEMO (special treatment) -->
       <div class="portfolio__card portfolio__card--demo" data-animate style="transition-delay: 0.3s">
@@ -132,10 +136,13 @@
 
   /* Base card */
   .portfolio__card {
+    display: block;
     background: #232a3a;
     border-radius: 10px;
     overflow: hidden;
     text-align: left;
+    text-decoration: none;
+    color: inherit;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
