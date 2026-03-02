@@ -42,27 +42,10 @@ const { title, description } = Astro.props;
     <!-- Calendly CSS -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
 
-    <!-- LocalBusiness JSON-LD -->
+    <!-- LocalBusiness JSON-LD (includes Organization data) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "Reyna House AI",
-      "url": "https://reynahouse.ai",
-      "description": "Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Big Bear Lake",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      },
-      "areaServed": ["California", "Nationwide"],
-      "serviceType": ["Web Design", "AI Automation", "Landing Pages"]
-    })} />
-
-    <!-- Organization JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
       "name": "Reyna House AI",
       "url": "https://reynahouse.ai",
       "logo": "https://reynahouse.ai/favicon.png",
@@ -73,6 +56,8 @@ const { title, description } = Astro.props;
         "addressRegion": "CA",
         "addressCountry": "US"
       },
+      "areaServed": ["California", "Nationwide"],
+      "serviceType": ["Web Design", "AI Automation", "Landing Pages"],
       "sameAs": [
         "https://www.facebook.com/reynahouseai",
         "https://x.com/ReynaHouse84828",
