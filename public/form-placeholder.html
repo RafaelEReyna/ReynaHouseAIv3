@@ -1,0 +1,19 @@
+<!--
+  This file exists solely for Netlify's form detection.
+  Netlify scans deployed HTML files for forms with data-netlify="true".
+  The actual user-facing form is in Contact.astro.
+-->
+<html>
+<head><title>Form Placeholder</title></head>
+<body>
+<form name="contact" netlify hidden>
+  <input type="hidden" name="form-name" value="contact" />
+  <input name="name" />
+  <input name="business" />
+  <input name="phone" />
+  <input name="best-time" />
+  <select name="need"><option value=""></option></select>
+  <textarea name="message"></textarea>
+</form>
+</body>
+</html>
