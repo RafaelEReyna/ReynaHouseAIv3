@@ -187,3 +187,30 @@
 - **Fix:** Delete the unused PNG files.
 - **Prevention:** When replacing asset files, delete the old ones in the same commit. Check for orphaned files after swapping imports.
 - **Status:** FIXED — Orphaned PNGs deleted.
+
+### Phase N — Post-Build Polish (Session 3)
+
+#### 25. CI/CD setup via API didn't grant GitHub permissions
+- **What happened:** Used `netlify api updateSite` to connect the GitHub repo for auto-deploys. Told the user "CI/CD is connected" but the first auto-deploy failed with "Unable to access repository — Host key verification failed."
+- **Cause:** The Netlify API can set build settings (repo URL, branch, build command), but it does NOT establish the OAuth connection between Netlify and GitHub. That requires the user to go through Netlify's web UI (Site configuration > Build & deploy > Link to Git) to grant repository access permissions.
+- **Fix:** Fell back to manual deploys. User needs to link via Netlify UI for true CI/CD.
+- **Prevention:** Don't assume API-level config equals full integration. Netlify's GitHub connection requires OAuth — verify the first auto-deploy succeeds before telling the user it works.
+- **Status:** NOT FIXED — CI/CD still requires manual Netlify UI setup.
+
+#### 26. OG image placed in src/assets/ instead of public/
+- **What happened:** Put `rhai_og.png` in `src/assets/images/`, then had to move it to `public/images/` and delete the original. The `og:image` meta tag requires a static, predictable URL — Astro-processed assets in `src/assets/` get hashed filenames (e.g., `rhai_og.BgQ1nQp_.webp`) that can't be hardcoded in a meta tag.
+- **Cause:** Didn't think through the difference between Astro-processed assets (hashed, optimized) and static assets (served as-is from `public/`).
+- **Fix:** Moved to `public/images/rhai_og.png` and updated the meta tag.
+- **Prevention:** Any asset referenced by a hardcoded URL in meta tags, JSON-LD, or `robots.txt` must go in `public/`, not `src/assets/`. Only assets imported in components via `astro:assets` should go in `src/assets/`.
+
+#### 27. Didn't verify auto-deploy before telling user CI/CD was working
+- **What happened:** After setting up CI/CD, committed and pushed. Told the user auto-deploys would handle it. User reported "nothing has changed" — the auto-deploy had silently failed.
+- **Cause:** Assumed the push would trigger a successful build without checking. Should have checked `netlify api listSiteDeploys` immediately after pushing.
+- **Fix:** Deployed manually after discovering the failure.
+- **Prevention:** After setting up any automated pipeline, verify the FIRST run succeeds before telling the user it's working. Check deploy status immediately after the triggering event.
+
+#### 28. Tried to import large SVG through astro:assets Image component
+- **What happened:** The secondary header logo (`reyna_house_secondary_logo.svg`, 323KB) was initially going to be imported via `astro:assets` like a PNG. Astro's `<Image>` component doesn't optimize SVGs — it would serve it unchanged or error.
+- **Cause:** Treated SVG the same as raster images without considering that Astro's image pipeline is designed for raster formats (PNG, JPG, WebP).
+- **Fix:** Moved SVG to `public/images/` and used a plain `<img>` tag.
+- **Prevention:** SVGs should go in `public/` and use plain `<img>` tags. Only raster images (PNG, JPG) benefit from `astro:assets` processing.
