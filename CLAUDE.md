@@ -186,4 +186,4 @@
 - **Cause:** When replacing asset files with new ones, forgot to delete the old files in the same commit.
 - **Fix:** Delete the unused PNG files.
 - **Prevention:** When replacing asset files, delete the old ones in the same commit. Check for orphaned files after swapping imports.
-- **Status:** NOT FIXED — Old PNGs still in repo.
+- **Status:** FIXED — Orphaned PNGs deleted.

@@ -27,7 +27,7 @@ const { title, description } = Astro.props;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://reynahouse.ai" />
-    <meta property="og:image" content="https://reynahouse.ai/images/og-image.png" />
+    <meta property="og:image" content="https://reynahouseai-v3.netlify.app/images/rhai_og.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -104,8 +104,14 @@ const { title, description } = Astro.props;
 
     <meta name="generator" content={Astro.generator} />
 
-    <!-- TODO: Add GA4 tracking ID once property is created -->
-    <!-- TODO: Uncomment for Plausible: <script defer data-domain='reynahouse.ai' src='https://plausible.io/js/plausible.js'></script> -->
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRP2HX7MV8"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GRP2HX7MV8');
+    </script>
   </head>
   <body>
     <slot />
