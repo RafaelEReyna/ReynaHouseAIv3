@@ -1,11 +1,13 @@
 ---
 // Header component — Phase B
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo_crown_only_mustard_gold.png';
 ---
 
 <header id="header" class="header">
   <div class="header__inner">
     <a href="/" class="header__logo">
-      <img src="/images/reyna_house_secondary_logo.svg" alt="Reyna House AI" width="64" height="64" />
+      <Image src={logo} alt="Reyna House AI" width={36} height={36} />
       <span>REYNA HOUSE AI</span>
     </a>
 
