@@ -59,6 +59,29 @@ const { title, description } = Astro.props;
       "serviceType": ["Web Design", "AI Automation", "Landing Pages"]
     })} />
 
+    <!-- Organization JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Reyna House AI",
+      "url": "https://reynahouse.ai",
+      "logo": "https://reynahouse.ai/favicon.png",
+      "description": "Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Big Bear Lake",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://www.facebook.com/reynahouseai",
+        "https://x.com/ReynaHouse84828",
+        "https://www.instagram.com/reynahouseai/",
+        "https://rumble.com/user/ReynaHouse",
+        "https://www.youtube.com/@ReynaHouseAi"
+      ]
+    })} />
+
     <!-- FAQ JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
