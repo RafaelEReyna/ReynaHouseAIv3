@@ -6,6 +6,8 @@
 :root {
   --navy: #334668;
   --copper: #C9944D;
+  --copper-dark: #8A5E23; /* AA-compliant against cream (#EDEAE0) and white (#F8F6F0) */
+  --copper-light: #E8C68A; /* AA-compliant (4.9:1) against navy (#334668) for small text */
   --forest: #243B28;
   --cream: #EDEAE0;
   --tan: #BFA984;

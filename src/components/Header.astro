@@ -7,7 +7,7 @@ import logo from '../assets/images/logo_crown_only_mustard_gold.png';
 <header id="header" class="header">
   <div class="header__inner">
     <a href="/" class="header__logo">
-      <Image src={logo} alt="Reyna House AI" width={36} height={36} />
+      <Image src={logo} alt="" width={36} height={36} densities={[1.5, 2]} loading="eager" fetchpriority="high" />
       <span>REYNA HOUSE AI</span>
     </a>
 
@@ -23,6 +23,7 @@ import logo from '../assets/images/logo_crown_only_mustard_gold.png';
       <a href="#hero" class="header__link">Home</a>
       <a href="#portfolio" class="header__link">Work</a>
       <a href="#services" class="header__link">Services</a>
+      <a href="#pricing" class="header__link">Pricing</a>
       <a href="#about" class="header__link">About</a>
       <a href="#contact" class="header__cta">Contact</a>
     </nav>
@@ -50,7 +51,7 @@ import logo from '../assets/images/logo_crown_only_mustard_gold.png';
 
   .header__logo {
     font-family: 'IBM Plex Mono', monospace;
-    color: var(--copper);
+    color: var(--copper-light);
     font-size: 1.1rem;
     font-weight: 400;
     letter-spacing: 0.05em;

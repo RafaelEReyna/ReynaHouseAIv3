@@ -11,7 +11,7 @@
 - **Live URL:** https://reynahouseai-v3.netlify.app
 - **Netlify account slug:** `rafaelereyna` (team name: "Reyna Legacy")
 - **Build command:** `npm run build` | **Publish dir:** `dist`
-- CI/CD not yet connected — currently using manual `netlify deploy --prod --dir=dist`
+- CI/CD linked in Netlify UI (GitHub repo connected) but webhook may not trigger builds — using manual `netlify deploy --prod --dir=dist` as fallback
 
 ---
 
@@ -195,7 +195,7 @@
 - **Cause:** The Netlify API can set build settings (repo URL, branch, build command), but it does NOT establish the OAuth connection between Netlify and GitHub. That requires the user to go through Netlify's web UI (Site configuration > Build & deploy > Link to Git) to grant repository access permissions.
 - **Fix:** Fell back to manual deploys. User needs to link via Netlify UI for true CI/CD.
 - **Prevention:** Don't assume API-level config equals full integration. Netlify's GitHub connection requires OAuth — verify the first auto-deploy succeeds before telling the user it works.
-- **Status:** NOT FIXED — CI/CD still requires manual Netlify UI setup.
+- **Status:** PARTIALLY FIXED — CI/CD is linked in the Netlify UI (user connected it), but webhooks may not be firing. Recent deploys show no `commit_ref`. Manual deploys used as fallback.
 
 #### 26. OG image placed in src/assets/ instead of public/
 - **What happened:** Put `rhai_og.png` in `src/assets/images/`, then had to move it to `public/images/` and delete the original. The `og:image` meta tag requires a static, predictable URL — Astro-processed assets in `src/assets/` get hashed filenames (e.g., `rhai_og.BgQ1nQp_.webp`) that can't be hardcoded in a meta tag.
@@ -214,3 +214,31 @@
 - **Cause:** Treated SVG the same as raster images without considering that Astro's image pipeline is designed for raster formats (PNG, JPG, WebP).
 - **Fix:** Moved SVG to `public/images/` and used a plain `<img>` tag.
 - **Prevention:** SVGs should go in `public/` and use plain `<img>` tags. Only raster images (PNG, JPG) benefit from `astro:assets` processing.
+
+### Phase P — Copy Updates & Schema (Session 4)
+
+#### 29. Assumed CI/CD wasn't connected without checking current state
+- **What happened:** CLAUDE.md error #25 said CI/CD required manual Netlify UI setup. Repeated this to the user and gave a 10-step guide to link the repo — but the repo was already linked. User had to send a screenshot proving it.
+- **Cause:** Relied on stale documentation (CLAUDE.md) instead of checking the actual Netlify dashboard state. Didn't run `netlify api getSite` or ask the user before asserting CI/CD was missing.
+- **Fix:** N/A — wasted the user's time with unnecessary instructions.
+- **Prevention:** Before telling the user something isn't set up, verify the current state first. Check the API or ask the user. Don't parrot old error log entries as current truth.
+- **Status:** ACKNOWLEDGED — CI/CD is linked in Netlify UI but webhooks may not be firing (deploys show no `commit_ref`).
+
+#### 30. Created redundant Organization schema alongside existing LocalBusiness schema
+- **What happened:** Added a separate `Organization` JSON-LD block with duplicate name, URL, description, and address — all of which already existed in the `LocalBusiness` block. `LocalBusiness` is a subtype of `Organization` in schema.org's hierarchy, so it inherits all Organization properties.
+- **Cause:** Didn't consider the schema.org type hierarchy. Treated `Organization` and `LocalBusiness` as separate, independent types.
+- **Fix:** Merged into a single `LocalBusiness` block with `logo` and `sameAs` fields added.
+- **Prevention:** When adding structured data, check what schemas already exist in the `<head>`. `LocalBusiness` inherits from `Organization` — add `logo`, `sameAs`, and other org-level fields directly to the `LocalBusiness` block. Never create both.
+- **Status:** FIXED — Merged into single LocalBusiness block.
+
+#### 31. Didn't deploy after hero copy change without being asked
+- **What happened:** User asked to update hero copy. Made the edit but didn't deploy to Netlify. User had to explicitly ask "please deploy." This is the same pattern as error #23 (not pushing to GitHub alongside deploys).
+- **Cause:** Waited for explicit instruction instead of proactively deploying after a content change the user clearly wanted live.
+- **Fix:** N/A — deployed when asked.
+- **Prevention:** When the user asks for a copy/content change to a live site, deploy after making the change. Don't wait to be asked separately.
+
+#### 32. Footer logo change went to production without being committed to git first
+- **What happened:** Changed the footer logo and deployed to Netlify, but didn't commit or push to GitHub. The production site had changes that weren't in version control. The commit only happened later when the header logo change bundled both together.
+- **Cause:** Treated deploy and commit as separate optional steps instead of a mandatory sequence: commit → push → deploy.
+- **Fix:** Both changes were eventually committed together.
+- **Prevention:** Never deploy uncommitted changes to production. The sequence is always: edit → commit → push → deploy. Code should be in version control before it goes live.

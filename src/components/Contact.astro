@@ -30,15 +30,15 @@
         </ol>
       </div>
 
-      <!-- RIGHT COLUMN — Calendly Embed -->
+      <!-- RIGHT COLUMN — Calendly Embed (lazy-loaded) -->
       <div class="contact__booking">
-        <div
+        <section
+          id="calendly-widget"
           class="calendly-inline-widget"
           data-url="https://calendly.com/reynahouseai-pm/30min"
           style="min-width:320px;height:630px;"
           aria-label="Schedule a call with Reyna House AI"
-        ></div>
-        <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        ></section>
       </div>
     </div>
 
@@ -57,22 +57,22 @@
 
       <div class="contact__field">
         <label for="name">Your Name *</label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" id="name" name="name" autocomplete="name" required />
       </div>
 
       <div class="contact__field">
         <label for="business">Business Name</label>
-        <input type="text" id="business" name="business" />
+        <input type="text" id="business" name="business" autocomplete="organization" />
       </div>
 
       <div class="contact__field">
         <label for="phone">Phone Number *</label>
-        <input type="tel" id="phone" name="phone" required />
+        <input type="tel" id="phone" name="phone" autocomplete="tel" required />
       </div>
 
       <div class="contact__field">
         <label for="best-time">Best Time to Call</label>
-        <input type="text" id="best-time" name="best-time" placeholder="e.g. Weekday mornings" />
+        <input type="text" id="best-time" name="best-time" autocomplete="off" placeholder="e.g. Weekday mornings" />
       </div>
 
       <div class="contact__field">
@@ -134,6 +134,46 @@
           alert('Something went wrong. Please try again or email edward@reynahouse.ai directly.');
         });
       });
+    }
+  })();
+</script>
+
+<script is:inline>
+  // Lazy-load Calendly (CSS + widget.js) only when the widget is near the viewport.
+  // Keeps render-blocking resources off the critical path.
+  (function() {
+    var target = document.getElementById('calendly-widget');
+    if (!target) return;
+    var loaded = false;
+
+    function loadCalendly() {
+      if (loaded) return;
+      loaded = true;
+
+      var css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(css);
+
+      var js = document.createElement('script');
+      js.src = 'https://assets.calendly.com/assets/external/widget.js';
+      js.async = true;
+      document.body.appendChild(js);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            loadCalendly();
+            io.disconnect();
+          }
+        });
+      }, { rootMargin: '400px' });
+      io.observe(target);
+    } else {
+      // Fallback: load on first interaction or after window load
+      window.addEventListener('load', loadCalendly, { once: true });
     }
   })();
 </script>

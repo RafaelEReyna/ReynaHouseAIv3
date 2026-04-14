@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import screenshotVillageHairsmith from '../assets/images/village_hairsmith_hero.jpg';
 import screenshotRosaNotary from '../assets/images/rosanotary_hero.jpg';
 import screenshotHerMaintenance from '../assets/images/her_maintenance_hero.jpg';
+import screenshotBBLPlumber from '../assets/images/bigbearlake_plumber_hero.jpg';
 ---
 
 <section id="portfolio" class="portfolio" data-animate>
@@ -19,9 +20,12 @@ import screenshotHerMaintenance from '../assets/images/her_maintenance_hero.jpg'
           <Image
             src={screenshotVillageHairsmith}
             alt="Village Hairsmith website screenshot"
-            width={600}
-            height={400}
+            widths={[480, 768, 1200]}
+            sizes="(max-width: 767px) 92vw, 540px"
+            width={1200}
+            height={800}
             loading="lazy"
+            decoding="async"
           />
         </div>
         <div class="portfolio__card-body">
@@ -37,9 +41,12 @@ import screenshotHerMaintenance from '../assets/images/her_maintenance_hero.jpg'
           <Image
             src={screenshotRosaNotary}
             alt="Rosa M. Vaquera-Martinez Notary Public website screenshot"
-            width={600}
-            height={400}
+            widths={[480, 768, 1200]}
+            sizes="(max-width: 767px) 92vw, 540px"
+            width={1200}
+            height={800}
             loading="lazy"
+            decoding="async"
           />
         </div>
         <div class="portfolio__card-body">
@@ -55,9 +62,12 @@ import screenshotHerMaintenance from '../assets/images/her_maintenance_hero.jpg'
           <Image
             src={screenshotHerMaintenance}
             alt="HER Maintenance website screenshot"
-            width={600}
-            height={400}
+            widths={[480, 768, 1200]}
+            sizes="(max-width: 767px) 92vw, 540px"
+            width={1200}
+            height={800}
             loading="lazy"
+            decoding="async"
           />
         </div>
         <div class="portfolio__card-body">
@@ -68,14 +78,17 @@ import screenshotHerMaintenance from '../assets/images/her_maintenance_hero.jpg'
       </a>
 
       <!-- Card 4 — DEMO (special treatment) -->
-      <div class="portfolio__card portfolio__card--demo" data-animate style="transition-delay: 0.3s">
+      <a href="https://bigbearlakeplumber.com" target="_blank" rel="noopener noreferrer" class="portfolio__card portfolio__card--demo" data-animate style="transition-delay: 0.3s">
         <div class="portfolio__image-wrap">
-          <img
-            src="https://placehold.co/600x400/C9944D/EDEAE0?text=Your+Site+Here"
+          <Image
+            src={screenshotBBLPlumber}
             alt="Demo website — your business could look like this"
-            width="600"
-            height="400"
+            widths={[480, 768, 1200]}
+            sizes="(max-width: 767px) 92vw, 540px"
+            width={1200}
+            height={800}
             loading="lazy"
+            decoding="async"
           />
         </div>
         <div class="portfolio__card-body">
@@ -83,7 +96,7 @@ import screenshotHerMaintenance from '../assets/images/her_maintenance_hero.jpg'
           <h3 class="portfolio__card-title portfolio__card-title--demo">Bear Valley Builders — Big Bear, CA</h3>
           <p class="portfolio__card-desc">Built to show what's possible for local GCs</p>
         </div>
-      </div>
+      </a>
     </div>
 
     <div class="portfolio__cta-wrap">
