@@ -2,14 +2,6 @@
 import '../styles/fonts.css';
 import '../styles/global.css';
 
-// Resolved, content-hashed URLs for the four Latin woff2 subsets actually
-// used above the fold. Preloading these breaks the CSS→font dependency
-// chain (~200 ms LCP improvement).
-import bebasNeueUrl from '@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2?url';
-import inter400Url from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
-import inter600Url from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
-import ibmPlexMono400Url from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
-
 interface Props {
   title: string;
   description: string;
@@ -43,10 +35,6 @@ const { title, description } = Astro.props;
     <meta name="twitter:description" content={description} />
 
     <!-- Fonts: self-hosted via @fontsource (see src/styles/fonts.css) -->
-    <link rel="preload" as="font" type="font/woff2" href={bebasNeueUrl} crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href={inter400Url} crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href={inter600Url} crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href={ibmPlexMono400Url} crossorigin />
 
     <!-- LocalBusiness JSON-LD (includes Organization data) -->
     <script type="application/ld+json" set:html={JSON.stringify({
