@@ -20,7 +20,10 @@ const { title, description } = Astro.props;
     <!-- SEO -->
     <title>{title} | Reyna House AI</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -42,7 +45,7 @@ const { title, description } = Astro.props;
       "@type": "LocalBusiness",
       "name": "Reyna House AI",
       "url": "https://reynahouse.ai",
-      "logo": "https://reynahouse.ai/favicon.png",
+      "logo": "https://reynahouse.ai/favicon-512.png",
       "description": "Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom.",
       "address": {
         "@type": "PostalAddress",
