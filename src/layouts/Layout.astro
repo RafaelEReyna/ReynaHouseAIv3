@@ -35,6 +35,7 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -54,13 +55,15 @@ const { title, description } = Astro.props;
     <link rel="preload" as="font" type="font/woff2" href={inter600Url} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={ibmPlexMono400Url} crossorigin />
 
-    <!-- LocalBusiness JSON-LD (includes Organization data) -->
+    <!-- LocalBusiness JSON-LD (LocalBusiness inherits from Organization) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "Reyna House AI",
       "url": "https://reynahouse.ai",
-      "logo": "https://reynahouse.ai/favicon-512.png",
+      "logo": "https://reynahouse.ai/logo-512.png",
+      "image": "https://reynahouse.ai/logo-512.png",
+      "email": "edward@reynahouse.ai",
       "description": "Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom.",
       "address": {
         "@type": "PostalAddress",
@@ -68,6 +71,12 @@ const { title, description } = Astro.props;
         "addressRegion": "CA",
         "addressCountry": "US"
       },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 34.2505,
+        "longitude": -116.8390
+      },
+      "priceRange": "$$",
       "areaServed": ["California", "Nationwide"],
       "serviceType": ["Web Design", "AI Automation", "Landing Pages"],
       "sameAs": [
