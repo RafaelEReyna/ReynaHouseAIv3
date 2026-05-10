@@ -55,36 +55,112 @@ const { title, description } = Astro.props;
     <link rel="preload" as="font" type="font/woff2" href={inter600Url} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={ibmPlexMono400Url} crossorigin />
 
-    <!-- LocalBusiness JSON-LD (LocalBusiness inherits from Organization) -->
+    <!-- LocalBusiness + Person + Service JSON-LD (linked via @graph + @id) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Reyna House AI",
-      "url": "https://reynahouse.ai",
-      "logo": "https://reynahouse.ai/logo-512.png",
-      "image": "https://reynahouse.ai/logo-512.png",
-      "email": "edward@reynahouse.ai",
-      "description": "Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Big Bear Lake",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 34.2505,
-        "longitude": -116.8390
-      },
-      "priceRange": "$$",
-      "areaServed": ["California", "Nationwide"],
-      "serviceType": ["Web Design", "AI Automation", "Landing Pages"],
-      "sameAs": [
-        "https://www.facebook.com/reynahouseai",
-        "https://x.com/ReynaHouse84828",
-        "https://www.instagram.com/reynahouseai/",
-        "https://rumble.com/user/ReynaHouse",
-        "https://www.youtube.com/@ReynaHouseAi"
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://reynahouse.ai/#org",
+          "name": "Reyna House AI",
+          "url": "https://reynahouse.ai",
+          "logo": "https://reynahouse.ai/logo-512.png",
+          "image": "https://reynahouse.ai/logo-512.png",
+          "email": "edward@reynahouse.ai",
+          "telephone": "+1-909-341-0243",
+          "description": "Reyna House AI builds custom websites and automation for general contractors. You own your site — no Wix, no monthly ransom.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Big Bear",
+            "addressRegion": "CA",
+            "addressCountry": "US"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 34.2505,
+            "longitude": -116.8390
+          },
+          "priceRange": "$$",
+          "areaServed": ["California", "Nationwide"],
+          "serviceType": ["Web Design", "AI Automation", "Landing Pages"],
+          "founder": { "@id": "https://reynahouse.ai/#edward" },
+          "employee": { "@id": "https://reynahouse.ai/#edward" },
+          "sameAs": [
+            "https://www.facebook.com/reynahouseai",
+            "https://x.com/ReynaHouse84828",
+            "https://www.instagram.com/reynahouseai/",
+            "https://rumble.com/user/ReynaHouse",
+            "https://www.youtube.com/@ReynaHouseAi",
+            "https://www.google.com/maps/place/Reyna+House+AI/@34.250527,-116.838967,17z/data=!4m6!3m5!1s0x341b5a05a7c210b:0x13b5e1cfbebadbe4!8m2!3d34.250527!4d-116.838967!16s%2Fg%2F11yqxnnld4"
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": 2,
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "review": [
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "Her Ruiz" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+              "reviewBody": "I run a commercial cleaning and building maintenance company that services offices in Van Nuys, CA and surrounding areas. Before working with Edward, I had no online presence at all— no website, no way for clients to find me or book us online. He built a professional website and set up a booking system so office managers can request quotes and schedule cleanings directly from their phone or computer, any time of day. Now new clients regularly find us online, send booking requests through the site. Recommend."
+            },
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "Rosa Vaquera" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+              "reviewBody": "Edward helped me with my website and made the whole process simple and clear. He was responsive, easy to work with, and explained things in a way I understood. Highly recommend."
+            }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Reyna House AI Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Foundation Site",
+                  "description": "4–5 page custom website with mobile optimization, Google Business Profile integration, basic local SEO, click-to-call and contact form. Live in 5 business days. Free Netlify hosting included.",
+                  "provider": { "@id": "https://reynahouse.ai/#org" },
+                  "areaServed": ["California", "Nationwide"]
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Authority Site",
+                  "description": "Foundation Site plus callback automation, Google Maps and schema markup, simple lead tracking. Live in 7 business days.",
+                  "provider": { "@id": "https://reynahouse.ai/#org" },
+                  "areaServed": ["California", "Nationwide"]
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Monthly Care Plan",
+                  "description": "Ongoing support including content updates, uptime monitoring, form testing, and Google review link management.",
+                  "provider": { "@id": "https://reynahouse.ai/#org" },
+                  "areaServed": ["California", "Nationwide"]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://reynahouse.ai/#edward",
+          "name": "Edward Reyna",
+          "givenName": "Edward",
+          "familyName": "Reyna",
+          "jobTitle": "Founder",
+          "worksFor": { "@id": "https://reynahouse.ai/#org" },
+          "sameAs": ["https://www.linkedin.com/in/edward-reyna/"]
+        }
       ]
     })} />
 
