@@ -17,6 +17,7 @@
     <div class="contact__columns">
       <!-- LEFT COLUMN — Contact Info -->
       <div class="contact__info">
+        <a href="tel:+19093410243" class="contact__phone">909-341-0243</a>
         <a href="mailto:edward@reynahouse.ai" class="contact__email">edward@reynahouse.ai</a>
         <p class="contact__location">Big Bear Lake, CA — Serving clients nationwide</p>
         <p class="contact__response">Reply within 6 hours (usually faster)</p>
@@ -228,6 +229,19 @@
   /* Left column — info */
   .contact__info {
     flex: 1 1 40%;
+  }
+
+  .contact__phone {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.25rem;
+    color: var(--copper);
+    margin-bottom: 8px;
+    transition: opacity 0.2s ease;
+  }
+
+  .contact__phone:hover {
+    opacity: 0.8;
   }
 
   .contact__email {
