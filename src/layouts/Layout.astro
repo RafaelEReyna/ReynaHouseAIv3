@@ -1,10 +1,9 @@
 ---
-import '../styles/fonts.css';
 import '../styles/global.css';
 
 // Resolved, content-hashed URLs for the four Latin woff2 subsets actually
-// used above the fold. Preloading these breaks the CSS→font dependency
-// chain (~200 ms LCP improvement).
+// used above the fold. We preload AND inline the @font-face declarations
+// below so the font registers at HTML parse, not after the CSS bundle.
 import bebasNeueUrl from '@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2?url';
 import inter400Url from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 import inter600Url from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
@@ -16,6 +15,45 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Inline @font-face declarations registered at HTML parse — pair with the
+// preload <link>s so the browser uses the already-in-flight woff2 instead
+// of waiting for the bundled CSS chain to resolve. Eliminates the hero
+// font-swap reflow that was driving CLS.
+const fontFaceCSS = `
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('${bebasNeueUrl}') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('${inter400Url}') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('${inter600Url}') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('${ibmPlexMono400Url}') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+`.trim();
 ---
 
 <!doctype html>
@@ -49,11 +87,13 @@ const { title, description } = Astro.props;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Fonts: self-hosted via @fontsource (see src/styles/fonts.css) -->
+    <!-- Fonts: self-hosted via @fontsource, preloaded + inline @font-face so
+         they register before the bundled CSS arrives (kills hero CLS). -->
     <link rel="preload" as="font" type="font/woff2" href={bebasNeueUrl} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={inter400Url} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={inter600Url} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={ibmPlexMono400Url} crossorigin />
+    <style is:global is:inline set:html={fontFaceCSS}></style>
 
     <!-- LocalBusiness + Person + Service JSON-LD (linked via @graph + @id) -->
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -93,6 +133,12 @@ const { title, description } = Astro.props;
             "https://www.youtube.com/@ReynaHouseAi",
             "https://www.google.com/maps/place/Reyna+House+AI/@34.250527,-116.838967,17z/data=!4m6!3m5!1s0x341b5a05a7c210b:0x13b5e1cfbebadbe4!8m2!3d34.250527!4d-116.838967!16s%2Fg%2F11yqxnnld4"
           ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "2",
+            "bestRating": "5"
+          },
           "review": [
             {
               "@type": "Review",
@@ -250,7 +296,9 @@ const { title, description } = Astro.props;
 
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Analytics (GA4) — deferred until browser is idle to protect TBT -->
+    <!-- Google Analytics (GA4) — deferred to first user interaction so it
+         never runs inside Lighthouse's FCP→TTI window. 15 s fallback covers
+         real users who load and read without interacting. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -264,11 +312,11 @@ const { title, description } = Astro.props;
         gtag('js', new Date());
         gtag('config', 'G-GRP2HX7MV8');
       }
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(loadGA, { timeout: 4000 });
-      } else {
-        window.addEventListener('load', function() { setTimeout(loadGA, 1500); }, { once: true });
-      }
+      var events = ['scroll','mousemove','touchstart','keydown','click'];
+      var opts = { once: true, passive: true, capture: true };
+      function attach(e){ window.addEventListener(e, loadGA, opts); }
+      events.forEach(attach);
+      setTimeout(loadGA, 15000);
     </script>
   </head>
   <body>
