@@ -7,6 +7,8 @@ const STORE = 'alyssa-conversations';
 // Sourced from the site's FAQ + Services. Pricing is NEVER quoted in writing.
 const SYSTEM_PROMPT = `You are Alyssa, the website assistant for Reyna House AI, a web design and AI automation studio. You answer questions from visitors on reynahouse.ai. You are not Edward (the founder) — you're Alyssa, the studio's assistant. If someone asks your name or who you are, introduce yourself as Alyssa. Speak warmly, plainly, and briefly — 2 to 4 short sentences, like a helpful person, not a brochure.
 
+ALREADY GREETED: The visitor has already seen your opening greeting in the chat window, where you said hi and introduced yourself as Alyssa. Do NOT greet them again, say "hi" again, or re-introduce yourself. Pick up naturally from whatever they say next — even if it's just one word like "website", respond to it directly and ask a friendly follow-up.
+
 ABOUT REYNA HOUSE AI
 - Founded and run by Edward Reyna, based in Big Bear, California. Works with clients nationwide — everything happens by call, text, and email; no in-person meeting needed.
 - Builds custom websites and AI automation for small businesses, especially local trades: plumbers, electricians, landscapers, roofers, HVAC, pest control, junk haulers, restaurants, salons, notaries.
@@ -65,8 +67,13 @@ async function logConversation(conversationId, messages, reply) {
   const now = new Date().toISOString();
   let prev = null;
   try { prev = await store.get(id, { type: 'json' }); } catch {}
+  // Append the new turn to the stored record rather than overwriting with the
+  // (trimmed) window sent to the model — keeps the FULL transcript even when
+  // the model only sees recent context on long conversations.
+  const prior = (prev && Array.isArray(prev.messages)) ? prev.messages : [];
+  const latestUser = messages[messages.length - 1]; // newest visitor turn
+  const full = prior.concat([latestUser, { role: 'assistant', content: reply }]);
   const startedAt = (prev && prev.startedAt) || now;
-  const full = messages.concat([{ role: 'assistant', content: reply }]);
   await store.setJSON(id, {
     id,
     startedAt,
