@@ -2,6 +2,9 @@
   command = "npm run build"
   publish = "dist"
 
+[functions]
+  node_bundler = "esbuild"
+
 # Long cache for hashed/immutable assets produced by Astro's build.
 [[headers]]
   for = "/_astro/*"

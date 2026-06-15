@@ -1,0 +1,144 @@
+---
+// Reyna House AI — "Alyssa" site chat widget (presentational shell only).
+// All behavior lives in /public/js/chat-widget.js, loaded deferred.
+import { Image } from 'astro:assets';
+import crown from '../assets/images/logo_crown_only_mustard_gold.png';
+---
+<div id="rh-chat" class="rhc" data-endpoint="/.netlify/functions/chat">
+  <button
+    id="rh-chat-launch"
+    class="rhc__launch"
+    aria-label="Chat with Alyssa"
+    aria-expanded="false"
+    aria-controls="rh-chat-panel"
+  >
+    <svg class="rhc__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4V6a2 2 0 0 1 2-2Z" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <section id="rh-chat-panel" class="rhc__panel" role="dialog" aria-label="Chat with Alyssa" aria-hidden="true">
+    <header class="rhc__header">
+      <Image src={crown} alt="" width={100} densities={[1, 2]} class="rhc__crown" />
+      <span class="rhc__id">
+        <span class="rhc__name">Alyssa</span>
+        <span class="rhc__status"><i class="rhc__dot"></i>Online · Reyna House AI</span>
+      </span>
+      <button id="rh-chat-close" class="rhc__close" aria-label="Close chat">&times;</button>
+    </header>
+    <div id="rh-chat-log" class="rhc__log" aria-live="polite"></div>
+    <form id="rh-chat-form" class="rhc__form">
+      <label class="rhc__sr" for="rh-chat-input">Your message</label>
+      <input
+        id="rh-chat-input"
+        class="rhc__input"
+        type="text"
+        autocomplete="off"
+        maxlength="2000"
+        placeholder="Ask about websites, automation, or booking…"
+      />
+      <button type="submit" class="rhc__send" aria-label="Send message">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M3 11l18-8-8 18-2-7-8-3Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </form>
+  </section>
+</div>
+
+<script src="/js/chat-widget.js" defer></script>
+
+<style is:global>
+  #rh-chat { position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+    font-family: 'Inter', sans-serif; }
+  .rhc__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  /* Launcher — pops in on load, then a gentle attention pulse until first open. */
+  .rhc__launch { width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--navy); color: var(--white); box-shadow: 0 6px 20px rgba(26,26,26,.28);
+    display: grid; place-items: center; transition: transform .15s ease, background .15s ease;
+    animation: rhc-pop .45s cubic-bezier(.2,1.3,.5,1) both, rhc-ring 2.6s ease-out 1.2s infinite; }
+  #rh-chat.is-chatting .rhc__launch { animation: rhc-pop .45s ease both; }
+  .rhc__launch:hover { background: #2a3a57; transform: translateY(-2px) scale(1.04); }
+  .rhc__launch:active { transform: scale(.95); }
+  .rhc__launch:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
+  .rhc__icon { width: 28px; height: 28px; }
+
+  /* Panel — slides up + fades + scales from the bubble corner. */
+  .rhc__panel { position: absolute; bottom: 74px; right: 0; width: min(370px, calc(100vw - 32px));
+    height: min(540px, calc(100vh - 120px)); background: var(--white); border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(26,26,26,.30); display: flex; flex-direction: column;
+    overflow: hidden; border: 1px solid var(--tan); transform-origin: bottom right;
+    opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(14px) scale(.97);
+    transition: opacity .24s ease, transform .24s cubic-bezier(.2,1,.4,1), visibility .24s; }
+  .rhc__panel.is-open { opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0) scale(1); }
+
+  .rhc__header { display: flex; align-items: center; gap: 10px; padding: 13px 16px;
+    background: var(--navy); color: var(--white); }
+  .rhc__crown { height: 28px; width: auto; flex: none; }
+  .rhc__id { display: flex; flex-direction: column; line-height: 1.25; }
+  .rhc__name { font-weight: 600; font-size: 1rem; }
+  .rhc__status { display: flex; align-items: center; gap: 5px; font-size: .7rem; opacity: .85; }
+  .rhc__dot { width: 7px; height: 7px; border-radius: 50%; background: #5fd08a; flex: none;
+    animation: rhc-blink 2.2s ease-in-out infinite; }
+  .rhc__close { margin-left: auto; background: none; border: none; color: var(--white);
+    font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 0 4px;
+    transition: transform .15s ease, opacity .15s ease; opacity: .8; }
+  .rhc__close:hover { opacity: 1; transform: rotate(90deg); }
+  .rhc__close:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+  .rhc__log { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column;
+    gap: 10px; background: var(--cream); scroll-behavior: smooth; }
+
+  /* Each message fades + slides in as it arrives. */
+  .rhc__msg { max-width: 85%; padding: 9px 13px; border-radius: 14px; font-size: .9rem;
+    line-height: 1.5; white-space: pre-wrap; word-wrap: break-word;
+    animation: rhc-in .3s cubic-bezier(.2,1,.4,1) both; }
+  .rhc__msg--assistant { background: var(--white); color: var(--navy); align-self: flex-start;
+    border: 1px solid var(--tan); border-bottom-left-radius: 4px; }
+  .rhc__msg--user { background: var(--navy); color: var(--white); align-self: flex-end;
+    border-bottom-right-radius: 4px; }
+  .rhc__msg a { color: var(--copper-dark); text-decoration: underline; }
+  .rhc__cta { display: inline-block; margin-top: 6px; background: var(--copper); color: var(--navy) !important;
+    padding: 7px 12px; border-radius: 8px; font-weight: 600; text-decoration: none !important;
+    transition: transform .15s ease, filter .15s ease; }
+  .rhc__cta:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+  /* Typing indicator — three bouncing dots. */
+  .rhc__typing { display: flex; gap: 4px; align-items: center; }
+  .rhc__typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--copper-dark);
+    animation: rhc-bounce 1.2s infinite ease-in-out; }
+  .rhc__typing span:nth-child(2) { animation-delay: .15s; }
+  .rhc__typing span:nth-child(3) { animation-delay: .3s; }
+
+  .rhc__form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--tan);
+    background: var(--white); }
+  .rhc__input { flex: 1; border: 1px solid var(--tan); border-radius: 10px; padding: 10px 12px;
+    font: inherit; font-size: .9rem; color: var(--dark); background: var(--white);
+    transition: border-color .15s ease; }
+  .rhc__input:focus-visible { outline: 2px solid var(--copper); outline-offset: 1px; border-color: var(--copper); }
+  .rhc__send { border: none; background: var(--copper); color: var(--navy); width: 42px;
+    border-radius: 10px; cursor: pointer; display: grid; place-items: center;
+    transition: background .15s ease, transform .15s ease; }
+  .rhc__send svg { width: 20px; height: 20px; }
+  .rhc__send:hover { background: var(--copper-light); transform: scale(1.05); }
+  .rhc__send:active { transform: scale(.92); }
+  .rhc__send:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  @keyframes rhc-pop { from { transform: scale(0); } to { transform: scale(1); } }
+  @keyframes rhc-ring {
+    0% { box-shadow: 0 6px 20px rgba(26,26,26,.28), 0 0 0 0 rgba(201,148,77,.5); }
+    70% { box-shadow: 0 6px 20px rgba(26,26,26,.28), 0 0 0 14px rgba(201,148,77,0); }
+    100% { box-shadow: 0 6px 20px rgba(26,26,26,.28), 0 0 0 0 rgba(201,148,77,0); } }
+  @keyframes rhc-in { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes rhc-bounce { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-5px); opacity: 1; } }
+  @keyframes rhc-blink { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+  /* Respect users who prefer reduced motion — keep show/hide, drop the movement. */
+  @media (prefers-reduced-motion: reduce) {
+    .rhc__launch, .rhc__msg, .rhc__typing span, .rhc__dot, .rhc__close { animation: none !important; }
+    .rhc__panel { transition: opacity .12s ease, visibility .12s !important; transform: none !important; }
+    .rhc__launch:hover, .rhc__send:hover, .rhc__cta:hover, .rhc__close:hover { transform: none !important; }
+  }
+</style>
