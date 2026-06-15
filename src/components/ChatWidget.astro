@@ -43,6 +43,7 @@ import crown from '../assets/images/logo_crown_only_mustard_gold.png';
         </svg>
       </button>
     </form>
+    <p class="rhc__note">Chats may be saved to improve our service. <a href="/privacy">Privacy</a></p>
   </section>
 </div>
 
@@ -125,6 +126,9 @@ import crown from '../assets/images/logo_crown_only_mustard_gold.png';
   .rhc__send:hover { background: var(--copper-light); transform: scale(1.05); }
   .rhc__send:active { transform: scale(.92); }
   .rhc__send:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+  .rhc__note { margin: 0; padding: 0 12px 9px; background: var(--white); text-align: center;
+    font-size: .66rem; color: var(--tan); }
+  .rhc__note a { color: var(--copper-dark); text-decoration: underline; }
 
   @keyframes rhc-pop { from { transform: scale(0); } to { transform: scale(1); } }
   @keyframes rhc-ring {

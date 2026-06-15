@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import crown from '../assets/images/logo_crown_only_mustard_gold.png';
+---
+
+<Layout
+  title="Privacy Policy"
+  description="How Reyna House AI collects and uses information on reynahouse.ai, including the contact form, chat assistant, scheduling, and analytics."
+>
+  <header class="legalbar">
+    <a href="/" class="legalbar__logo">
+      <Image src={crown} alt="" width={56} densities={[1, 2]} />
+      <span>REYNA HOUSE AI</span>
+    </a>
+    <a href="/" class="legalbar__back">&larr; Back to home</a>
+  </header>
+
+  <main class="legal">
+    <h1 class="legal__title">Privacy Policy</h1>
+    <p class="legal__updated">Last updated: June 15, 2026</p>
+
+    <p>This Privacy Policy explains what information Reyna House AI collects when you visit reynahouse.ai, why we collect it, and the choices you have. Reyna House AI is a web design and automation studio based in Big Bear, California.</p>
+
+    <h2>Information we collect</h2>
+    <ul>
+      <li><strong>Information you send us.</strong> When you fill out the contact form, message our chat assistant (Alyssa), or book a call, we collect what you choose to share; for example your name, email, phone number, business details, and the contents of your messages.</li>
+      <li><strong>Chat conversations.</strong> Messages you exchange with Alyssa, our website chat assistant, are stored so we can respond to your inquiry and improve the assistant. Please avoid sharing sensitive personal information in the chat.</li>
+      <li><strong>Booking information.</strong> When you schedule a call, our scheduling provider (Calendly) collects the details needed to book it, such as your name, email, and selected time.</li>
+      <li><strong>Usage data.</strong> We use Google Analytics to understand how visitors use the site, such as pages viewed and general location. This data is aggregated and is not used to personally identify you.</li>
+    </ul>
+
+    <h2>How we use your information</h2>
+    <p>We use the information to respond to your inquiries, schedule and prepare for calls, provide and improve our services and the chat assistant, and operate and secure the website. We do not sell your personal information.</p>
+
+    <h2>Service providers we use</h2>
+    <p>We rely on a few trusted providers to run the site: Netlify (hosting and data storage), Anthropic (the AI that powers the chat assistant), Google (analytics), and Calendly (scheduling). Your information may be processed by these providers solely to provide these services.</p>
+
+    <h2>How long we keep it</h2>
+    <p>We keep the information for as long as needed to respond to you and run our business. You can ask us to delete your information at any time; see Your choices below.</p>
+
+    <h2>Your choices</h2>
+    <p>You can request access to, correction of, or deletion of your personal information by emailing edward@reynahouse.ai. If you are a California resident, you have rights under the CCPA and CPRA, including the right to know what we collect and to request deletion. We honor these requests and will not discriminate against you for exercising them.</p>
+
+    <h2>Children</h2>
+    <p>This site is intended for business owners and is not directed to children under 13. We do not knowingly collect information from children.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy from time to time. When we do, we will change the "Last updated" date at the top of this page.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy or your information? Reach Edward Reyna at <a href="mailto:edward@reynahouse.ai">edward@reynahouse.ai</a> or <a href="tel:+19093410243">909-341-0243</a>.</p>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legalbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 24px;
+    background: var(--navy);
+  }
+
+  .legalbar__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+
+  .legalbar__logo img {
+    height: 28px;
+    width: auto;
+  }
+
+  .legalbar__back {
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+  }
+
+  .legalbar__back:hover {
+    color: var(--copper-light);
+  }
+
+  .legal {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  .legal__title {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .legal__updated {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper-dark);
+    font-size: 0.85rem;
+    margin-bottom: 28px;
+  }
+
+  .legal h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 1.2rem;
+    margin: 32px 0 10px;
+  }
+
+  .legal p,
+  .legal li {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .legal p {
+    margin-bottom: 12px;
+  }
+
+  .legal ul {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  .legal li {
+    margin-bottom: 10px;
+  }
+
+  .legal a {
+    color: var(--copper-dark);
+    text-decoration: underline;
+  }
+</style>
