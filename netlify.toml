@@ -5,6 +5,19 @@
 [functions]
   node_bundler = "esbuild"
 
+# Slug standardized to plural (matches the /websites-for-* spoke family).
+[[redirects]]
+  from = "/website-for-contractors"
+  to = "/websites-for-contractors"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/website-for-contractors/"
+  to = "/websites-for-contractors/"
+  status = 301
+  force = true
+
 # Long cache for hashed/immutable assets produced by Astro's build.
 [[headers]]
   for = "/_astro/*"
