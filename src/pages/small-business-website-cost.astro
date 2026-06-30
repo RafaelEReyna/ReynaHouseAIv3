@@ -1,0 +1,422 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const faqs = [
+  {
+    q: "How much should a small business spend on a website?",
+    a: "Enough that you own it and it actually brings in calls; not so much that you are paying a platform rent for the rest of the business's life. For most local trades that means a one-time custom build in the low-to-mid four figures, not a subscription you never stop paying. The right number depends on how many pages you need, whether you want booking or callback automation, and whether your photos and logo are ready or built from scratch.",
+  },
+  {
+    q: "Why do website prices vary so much?",
+    a: "Because \"a website\" covers everything from a $12-a-month template you fill in yourself to a $20,000 custom build. The three things that move the price most are who builds it (you, an offshore freelancer, or a developer), whether you own the code when it's done, and whether it's built to get found on Google or just to exist.",
+  },
+  {
+    q: "Is a cheap website worth it?",
+    a: "Sometimes, to start. The catch is what \"cheap\" usually means: you rent it monthly and own nothing, or it's a generic template that never shows up on Google. A $30-a-month builder is $1,080 over three years and the day you stop paying, the site disappears. And $30 rarely stays $30; add online booking, a chatbot, or card payments and you're bumped to a higher plan plus paid monthly apps, so $50 to $100 a month is normal. That's $1,800 to $3,600 over three years, still renting, still owning nothing. Cheap up front is often the most expensive option over time.",
+  },
+  {
+    q: "Do I have to pay monthly for a website?",
+    a: "No. That's the part most owners don't realize. Builders like Wix and Squarespace are rentals; you pay every month and the site is gone the day you stop. When I build a site, you own the code, the domain, and the hosting. There's an optional care plan if you want me handling updates, but it's a choice, not a leash.",
+  },
+  {
+    q: "Do I own the website if I pay for it?",
+    a: "With me, yes; the code lives under your account, the domain is in your name, and the hosting is yours. With most builders and a lot of agencies, no; you're renting their platform and you walk away with nothing. Always ask that question before you pay anyone: when this is done, what do I actually own?",
+  },
+  {
+    q: "What is \"code,\" in plain English?",
+    a: "Code is the set of instructions that tells a web browser how to build your page; the text, the layout, the buttons, the whole thing. Think of it like the blueprints and materials for a house. When you own the code, you hold the blueprints, so you can hand them to any builder and they can work on your site. On a rented platform like Wix, you never get the blueprints; they stay locked inside that company, which is why you can't take your site anywhere else.",
+  },
+  {
+    q: "What is website hosting?",
+    a: "Hosting is the space on the internet where your website actually lives, like renting the lot your building sits on so customers can come visit. Every website needs it. What matters is whose name the hosting is under: when I build your site, the hosting account is yours, so the site stays online even if you and I part ways. On a builder, the hosting belongs to them, so your site is only up as long as you keep paying their monthly bill.",
+  },
+  {
+    q: "How much does Reyna House AI charge for a website?",
+    a: "Every project is scoped to your business; a one-truck landscaper isn't the same job as a multi-location restaurant. That's why I won't throw out a number that turns out wrong. Book a free call and I'll give you one real price for your business, no pressure and no obligation.",
+  },
+];
+---
+
+<Layout
+  title="How Much Does a Small Business Website Cost?"
+  description="A straight answer on what a small business website really costs in 2026 — the four ways to buy one, what moves the price, and the rent-vs-own trap most owners miss."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://reynahouse.ai/" },
+        { "@type": "ListItem", "position": 2, "name": "Small Business Website Cost", "item": "https://reynahouse.ai/small-business-website-cost/" },
+      ],
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main class="page">
+    <!-- Intro / direct answer -->
+    <article class="intro">
+      <div class="intro__container">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a> <span aria-hidden="true">/</span> Website Cost
+        </nav>
+        <span class="overline">PRICING, EXPLAINED STRAIGHT</span>
+        <h1 class="h1">How Much Does a Small Business Website Cost?</h1>
+        <p class="lede">
+          Short answer: anywhere from nothing to north of $20,000. That spread is
+          real, and it's the reason nobody can give you one honest number without
+          knowing your business first. What you actually pay comes down to three
+          things; who builds it, whether you own it when they're done, and whether
+          it's built to get you calls or just to sit there looking nice.
+        </p>
+        <p class="body body--gold">
+          Here's the whole picture, without the sales fog, so you can figure out
+          where you fit before you ever talk to anyone.
+        </p>
+      </div>
+    </article>
+
+    <!-- The four ways to buy a website -->
+    <section class="section section--tint">
+      <div class="section__container">
+        <h2 class="h2">The Four Ways to Get a Website</h2>
+        <p class="body">
+          Every quote you'll ever get falls into one of these four buckets. The
+          price gap between them is huge, and so is what you walk away owning.
+        </p>
+
+        <div class="ways">
+          <div class="way">
+            <span class="way__price">$0 – $30/mo to start</span>
+            <h3 class="way__title">Do it yourself (Wix, Squarespace, GoDaddy)</h3>
+            <p class="way__body">
+              Cheapest to start, and you do all the work. The real cost is two-fold:
+              you're renting, so the day you stop paying the site is gone, and a
+              drag-and-drop template rarely shows up on Google. Fine for a weekend
+              hobby. Thin ground for a business that needs to be found.
+            </p>
+            <p class="way__body">
+              And $30 is the starting line, not the finish. A basic contact form is
+              included, but the things a business actually wants; online booking, a
+              chatbot, taking payments online; push you to a pricier plan or a paid
+              add-on that bills monthly on top. It's common to land between $50 and
+              $100 a month once the site does real work.
+            </p>
+          </div>
+
+          <div class="way">
+            <span class="way__price">$300 – $2,000, one-time</span>
+            <h3 class="way__title">An offshore freelancer (Fiverr, Upwork)</h3>
+            <p class="way__body">
+              Cheap and fast. The trade-offs: it's often a recycled template, you
+              may not own the code, and when something breaks in six months the
+              person who built it has moved on. You get what the price tells you
+              you're getting.
+            </p>
+            <p class="way__body">
+              It's also not built in the USA. That price works because $300 stretches a
+              lot further where the cost of living is a fraction of ours; it's a
+              different economy, not a bargain. The flip side is the person who
+              built it isn't down the road, or even in your time zone, when
+              something breaks.
+            </p>
+          </div>
+
+          <div class="way">
+            <span class="way__price">$3,000 – $10,000+, plus monthly</span>
+            <h3 class="way__title">A local agency</h3>
+            <p class="way__body">
+              More custom, more polish. But read the contract; plenty of agencies
+              keep your site on their account and charge a monthly retainer you
+              can't cancel, so you're renting at a higher price and walk away with
+              nothing if you leave. Not all of them; just enough that you ask the
+              one question that matters before you sign: when this is done, what do
+              I own?
+            </p>
+          </div>
+
+          <div class="way way--feature">
+            <span class="way__price">Scoped to your business, one-time. You own it.</span>
+            <h3 class="way__title">A custom build you actually own (what I do)</h3>
+            <p class="way__body">
+              Yes, I'm an agency too; the difference is the contract. It's built in
+              clean code for your business, not pulled off a shelf, and when it's
+              done you own the code, the domain, and the hosting outright; it's
+              yours like your truck and your tools. No mandatory retainer, no
+              platform you're locked to.
+            </p>
+            <p class="way__body">
+              I want you around for the long haul because the work keeps earning it,
+              not because you can't leave. One real price on a free call, no monthly
+              ransom, and an optional care plan only if you want me handling updates.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What moves the price -->
+    <section class="section">
+      <div class="section__container">
+        <h2 class="h2">What Actually Moves the Price</h2>
+        <p class="body">
+          When someone scopes your site honestly, these are the levers. None of
+          them are mysteries; they're just the difference between a one-pager and a
+          machine that books jobs while you're on a roof.
+        </p>
+        <ul class="levers">
+          <li><strong>How many pages.</strong> A single landing page is a different job than a full site with service pages for every trade you offer.</li>
+          <li><strong>Whether you need automation.</strong> Missed-call text-back, online booking, and lead tracking add real value, and real work.</li>
+          <li><strong>Photos, logo, and content.</strong> Ready to hand over, or built from scratch? Starting from nothing is fine; it just adds to the build.</li>
+          <li><strong>Care after launch.</strong> Hand it off and never speak to me again, or keep me on call for same-day updates. Your choice, and it changes the number.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Rent vs own -->
+    <section class="section section--dark">
+      <div class="section__container">
+        <span class="overline overline--light">THE COST NOBODY QUOTES YOU</span>
+        <h2 class="h2 h2--light">Renting vs. Owning</h2>
+        <p class="body body--light">
+          A $30-a-month builder looks cheap on the day you sign up. Run the math
+          out three years and it's $1,080, and you still own nothing; stop paying
+          and the whole thing vanishes, calls and all. A site you own is a one-time
+          cost that keeps working whether or not you ever pay another person a
+          dime. That's the difference between renting your storefront and owning
+          your building.
+        </p>
+      </div>
+    </section>
+
+    <!-- Route to call -->
+    <section class="section section--cta">
+      <div class="section__container">
+        <h2 class="h2">So What Will Yours Cost?</h2>
+        <p class="body">
+          That depends on your business, and I'd rather give you a real number than
+          a guess that turns out wrong. Book a free call; tell me what you do and
+          what you need, and I'll give you one honest price for your business. No
+          pitch, no pressure, no obligation.
+        </p>
+        <div class="cta__actions">
+          <a href="/#contact" class="btn btn--primary">Book a Free Call &rarr;</a>
+          <a href="tel:+19093410243" class="btn btn--ghost">Or call 909-341-0243</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--tint">
+      <div class="section__container section__container--narrow">
+        <h2 class="h2">Common Questions About Website Pricing</h2>
+        {faqs.map((f) => (
+          <details class="faq">
+            <summary class="faq__q">{f.q}</summary>
+            <p class="faq__a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page { background-color: var(--white); }
+
+  .intro {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a1a2e 100%);
+    padding: 72px 24px 64px;
+  }
+  .intro__container { max-width: 820px; margin: 0 auto; }
+
+  .crumbs {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--tan);
+    margin-bottom: 24px;
+  }
+  .crumbs a { color: var(--copper-light); }
+  .crumbs a:hover { color: var(--copper); }
+
+  .overline {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper-light);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 16px;
+  }
+  .overline--light { color: var(--copper-light); }
+
+  .h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--white);
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .lede {
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .section { padding: 64px 24px; }
+  .section--tint { background-color: var(--cream); }
+  .section--dark { background: linear-gradient(135deg, var(--forest) 0%, #1a2a1c 100%); }
+  .section--cta { background-color: var(--white); text-align: center; }
+  .section__container { max-width: 920px; margin: 0 auto; }
+  .section__container--narrow { max-width: 760px; }
+
+  .h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .h2--light { color: var(--white); }
+
+  .body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+  .body--light { color: var(--cream); }
+  .body--gold { color: var(--gold); font-weight: 600; }
+
+  /* Four ways grid */
+  .ways {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .way {
+    background-color: var(--white);
+    border: 1px solid var(--tan);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .way--feature {
+    border: 2px solid var(--copper);
+    background: #fffdf8;
+  }
+  .way__price {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--copper-dark);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .way__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .way__body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+  .way__body + .way__body { margin-top: 12px; }
+
+  /* Levers */
+  .levers {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .levers li {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    font-size: 1.02rem;
+    line-height: 1.65;
+    padding: 12px 0 12px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--cream);
+  }
+  .levers li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--copper-dark);
+    font-weight: 700;
+  }
+  .levers strong { color: var(--navy); }
+
+  /* CTA */
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 28px;
+  }
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 26px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .btn--primary { background-color: var(--copper); color: var(--white); }
+  .btn--primary:hover { background-color: #b8843f; }
+  .btn--ghost { border: 1px solid var(--navy); color: var(--navy); }
+  .btn--ghost:hover { background-color: var(--navy); color: var(--white); }
+  .btn:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+  /* FAQ */
+  .faq {
+    border-bottom: 1px solid var(--tan);
+    padding: 16px 0;
+  }
+  .faq__q {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper-dark);
+    font-size: 0.95rem;
+    cursor: pointer;
+    list-style: none;
+    padding: 4px 0;
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q::before { content: '+ '; font-weight: 700; }
+  details[open] .faq__q::before { content: '− '; }
+  .faq__a {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    font-size: 0.97rem;
+    line-height: 1.7;
+    padding: 12px 0 4px;
+  }
+
+  @media (max-width: 700px) {
+    .ways { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const faqs = [
+  {
+    q: "Why isn't my business showing up on Google Maps?",
+    a: "Almost always one of three things: you don't have a Google Business Profile, you have one but never verified it, or the details on it don't match what's on your website and other listings. Google won't confidently show a business it can't confirm is real and consistent. Claim and verify the profile first; that single step fixes a lot of \"I'm invisible\" cases.",
+  },
+  {
+    q: "How long does it take to show up on Google?",
+    a: "A verified Google Business Profile can appear in days. A brand-new website usually takes a few weeks to get fully crawled and indexed, and climbing the ranking for competitive searches takes longer; think months, not days. Anyone promising the top spot overnight is selling you something. Steady, honest work is what holds up.",
+  },
+  {
+    q: "Do I need a website to show up on Google?",
+    a: "You can show up on Maps with just a Google Business Profile, and you should set one up today. But a real website is what makes you show up for the searches that matter, like \"plumber near me\" or \"emergency electrician in [your town],\" and it's what turns a click into a call. The profile gets you on the map; the site wins the job.",
+  },
+  {
+    q: "What is a Google Business Profile?",
+    a: "It's the free listing that shows your business on Google Maps and in the box that appears when someone searches your name; your hours, phone, photos, and reviews. It's the single most important free tool for getting found locally, and most owners either haven't claimed theirs or have left it half-empty.",
+  },
+  {
+    q: "Why do my competitors rank above me?",
+    a: "Usually because they've done the boring work you haven't: a fully filled-out Google Business Profile, a website built around what local customers actually search, the same name, address, and phone listed everywhere, and a steady trickle of real reviews. None of it is magic. It's just done consistently, and Google rewards that.",
+  },
+  {
+    q: "How much does it cost to get found on Google?",
+    a: "It's scoped to where you're starting from; some businesses just need their profile and site cleaned up, others need the whole foundation built. Book a free call, I'll take a look at where you stand now, and give you one real number, no pressure and no obligation.",
+  },
+];
+---
+
+<Layout
+  title="Why Isn't My Business Showing Up on Google?"
+  description="The real reasons a local business stays invisible on Google, the things you can check yourself today, and what actually moves you up the results for searches that bring calls."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://reynahouse.ai/" },
+        { "@type": "ListItem", "position": 2, "name": "Why Isn't My Business Showing Up on Google?", "item": "https://reynahouse.ai/why-not-showing-on-google/" },
+      ],
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main class="page">
+    <article class="intro">
+      <div class="intro__container">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a> <span aria-hidden="true">/</span> Not Showing on Google?
+        </nav>
+        <span class="overline">GET FOUND LOCALLY</span>
+        <h1 class="h1">Why Isn't My Business Showing Up on Google?</h1>
+        <p class="lede">
+          You know you do good work, but when someone searches for what you do,
+          you're nowhere; and your competitor down the road is sitting right at the
+          top. It's not that Google has it out for you. It almost always comes down
+          to a handful of fixable reasons, and most of them you can check yourself
+          today.
+        </p>
+        <p class="body body--gold">
+          Here are the usual culprits, in plain English, and what actually moves
+          the needle.
+        </p>
+      </div>
+    </article>
+
+    <section class="section">
+      <div class="section__container">
+        <h2 class="h2">The Usual Reasons You're Invisible</h2>
+        <ul class="levers">
+          <li><strong>No Google Business Profile.</strong> The free Maps listing is the foundation. No profile, no map pin, no local box.</li>
+          <li><strong>You have one, but never verified it.</strong> Unverified profiles get buried. Google needs to confirm you're real.</li>
+          <li><strong>Your details don't match.</strong> A different phone number or address on your site, your profile, and old listings tells Google it can't trust any of them.</li>
+          <li><strong>No website, or a thin one.</strong> A single weak page gives Google almost nothing to rank for the searches that bring calls.</li>
+          <li><strong>Few or no reviews.</strong> Reviews are a trust signal. A business with two stars and three reviews loses to the one with steady fives.</li>
+          <li><strong>A brand-new site Google hasn't indexed yet.</strong> Sometimes you're just early; it can take a few weeks to get crawled and start showing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--tint">
+      <div class="section__container">
+        <h2 class="h2">Check These Yourself First</h2>
+        <p class="body">
+          Before you pay anyone, spend five minutes on this. It tells you which
+          bucket you're in.
+        </p>
+        <div class="steps">
+          <div class="step">
+            <h3>Search your business name</h3>
+            <p>If a profile with your hours and reviews shows up on the right, you have one. If not, that's your first fix.</p>
+          </div>
+          <div class="step">
+            <h3>Search your service plus your town</h3>
+            <p>Like "drain cleaning in [your town]." See where you land, and who's above you. That's your real competition.</p>
+          </div>
+          <div class="step">
+            <h3>Compare your details everywhere</h3>
+            <p>Is the same name, address, and phone on your site, your profile, and your old listings? Mismatches quietly hold you back.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <div class="section__container">
+        <span class="overline overline--light">WHAT ACTUALLY MOVES THE NEEDLE</span>
+        <h2 class="h2 h2--light">Get the Foundation Right, Then Be Patient</h2>
+        <p class="body body--light">
+          Showing up isn't a trick; it's a foundation. A Google Business Profile
+          that's claimed, verified, and filled out all the way. A real website
+          built around the exact searches your customers use, with a page for each
+          thing you do and each town you serve. The same name, address, and phone
+          listed consistently everywhere. A steady trickle of honest reviews. Then
+          time, because Google trusts businesses that look real and stay
+          consistent. That's the whole job, and it's exactly what I set up for the
+          businesses I build for.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--cta">
+      <div class="section__container">
+        <h2 class="h2">Want to Know Why You're Not Showing Up?</h2>
+        <p class="body">
+          Tell me your business name and what you do, and I'll take a look at where
+          you stand on Google right now and what's holding you back. Book a free
+          call; no pitch, no pressure, no obligation.
+        </p>
+        <div class="cta__actions">
+          <a href="/#contact" class="btn btn--primary">Book a Free Call &rarr;</a>
+          <a href="tel:+19093410243" class="btn btn--ghost">Or call 909-341-0243</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tint">
+      <div class="section__container section__container--narrow">
+        <h2 class="h2">Common Questions About Getting Found on Google</h2>
+        {faqs.map((f) => (
+          <details class="faq">
+            <summary class="faq__q">{f.q}</summary>
+            <p class="faq__a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="related">
+      <div class="related__container">
+        <p class="related__title">Keep Reading</p>
+        <div class="related__grid">
+          <a class="related__card" href="/small-business-website-cost/">
+            <span>What Does a Small Business Website Cost?</span>
+            <small>The four ways to buy one, and the rent-vs-own trap.</small>
+          </a>
+          <a class="related__card" href="/missed-call-text-back/">
+            <span>Missed-Call Text-Back</span>
+            <small>Stop losing jobs to voicemail when you can't pick up.</small>
+          </a>
+          <a class="related__card" href="/do-you-own-your-website/">
+            <span>Do You Own Your Website?</span>
+            <small>The question to ask before you pay anyone.</small>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page { background-color: var(--white); }
+  .intro { background: linear-gradient(135deg, var(--navy) 0%, #1a1a2e 100%); padding: 72px 24px 64px; }
+  .intro__container { max-width: 820px; margin: 0 auto; }
+  .crumbs { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--tan); margin-bottom: 24px; }
+  .crumbs a { color: var(--copper-light); }
+  .crumbs a:hover { color: var(--copper); }
+  .overline { display: block; font-family: 'IBM Plex Mono', monospace; color: var(--copper-light); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; margin-bottom: 16px; }
+  .h1 { font-family: 'Bebas Neue', sans-serif; color: var(--white); font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05; margin-bottom: 24px; }
+  .lede { font-family: 'Inter', sans-serif; color: var(--white); font-size: 1.15rem; line-height: 1.7; margin-bottom: 16px; }
+  .section { padding: 64px 24px; }
+  .section--tint { background-color: var(--cream); }
+  .section--dark { background: linear-gradient(135deg, var(--forest) 0%, #1a2a1c 100%); }
+  .section--cta { background-color: var(--white); text-align: center; }
+  .section__container { max-width: 920px; margin: 0 auto; }
+  .section__container--narrow { max-width: 760px; }
+  .h2 { font-family: 'Bebas Neue', sans-serif; color: var(--navy); font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.1; margin-bottom: 20px; }
+  .h2--light { color: var(--white); }
+  .body { font-family: 'Inter', sans-serif; color: var(--dark); font-size: 1.05rem; line-height: 1.75; margin-bottom: 16px; }
+  .body--light { color: var(--cream); }
+  .body--gold { color: var(--gold); font-weight: 600; }
+
+  .levers { list-style: none; margin-top: 12px; }
+  .levers li { font-family: 'Inter', sans-serif; color: var(--dark); font-size: 1.02rem; line-height: 1.65; padding: 12px 0 12px 28px; position: relative; border-bottom: 1px solid var(--cream); }
+  .levers li::before { content: '→'; position: absolute; left: 0; color: var(--copper-dark); font-weight: 700; }
+  .levers strong { color: var(--navy); }
+
+  .steps { display: grid; gap: 16px; margin-top: 28px; counter-reset: step; }
+  .step { position: relative; padding: 20px 20px 20px 68px; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; }
+  .step::before { counter-increment: step; content: counter(step); position: absolute; left: 20px; top: 20px; width: 34px; height: 34px; display: grid; place-items: center; background: var(--copper); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; border-radius: 50%; }
+  .step h3 { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--navy); font-size: 1.05rem; margin-bottom: 6px; }
+  .step p { font-family: 'Inter', sans-serif; color: var(--dark); font-size: 0.95rem; line-height: 1.6; }
+
+  .cta__actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 28px; }
+  .btn { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; padding: 14px 26px; border-radius: 8px; transition: background-color 0.2s ease, color 0.2s ease; }
+  .btn--primary { background-color: var(--copper); color: var(--white); }
+  .btn--primary:hover { background-color: #b8843f; }
+  .btn--ghost { border: 1px solid var(--navy); color: var(--navy); }
+  .btn--ghost:hover { background-color: var(--navy); color: var(--white); }
+  .btn:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+  .faq { border-bottom: 1px solid var(--tan); padding: 16px 0; }
+  .faq__q { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.95rem; cursor: pointer; list-style: none; padding: 4px 0; }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q::before { content: '+ '; font-weight: 700; }
+  details[open] .faq__q::before { content: '− '; }
+  .faq__a { font-family: 'Inter', sans-serif; color: var(--navy); font-size: 0.97rem; line-height: 1.7; padding: 12px 0 4px; }
+
+  .related { background: var(--cream); padding: 48px 24px; }
+  .related__container { max-width: 920px; margin: 0 auto; }
+  .related__title { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related__card { display: block; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; padding: 18px; transition: border-color 0.2s ease; }
+  .related__card:hover { border-color: var(--copper); }
+  .related__card span { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--navy); font-size: 1rem; line-height: 1.3; }
+  .related__card small { display: block; font-family: 'Inter', sans-serif; color: var(--dark); font-size: 0.85rem; margin-top: 6px; line-height: 1.5; }
+
+  @media (max-width: 700px) {
+    .steps { grid-template-columns: 1fr; }
+    .related__grid { grid-template-columns: 1fr; }
+  }
+</style>

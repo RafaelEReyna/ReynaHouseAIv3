@@ -1,0 +1,265 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const faqs = [
+  {
+    q: "What is missed-call text-back?",
+    a: "It's a simple automation that watches your business line. The second a call comes in that you can't pick up, it fires off a text to that caller automatically, in your name, so they know you saw them and you'll be right with them. Instead of hitting voicemail and calling the next guy, they get a reply in seconds and the conversation keeps going by text.",
+  },
+  {
+    q: "Why does a text beat a voicemail?",
+    a: "Because almost nobody leaves a voicemail anymore, and the ones who do expect a callback hours later. A text lands instantly and feels easy to answer; most people text back within a couple of minutes. When someone's phone is flooded with calls to three businesses, the one that answers first usually wins the job. Text-back makes you that one, even when your hands are full.",
+  },
+  {
+    q: "Will my customers think they're talking to a robot?",
+    a: "The first text goes out automatically, but it reads like you, not a machine; something like \"Sorry I missed your call, this is Edward, what can I help you with?\" From there you're answering yourself when you get a minute. It buys you time without sounding like an auto-reply.",
+  },
+  {
+    q: "Do I need a new phone number?",
+    a: "No. It works with the business number you already use. Your customers keep calling the same line; the automation just covers you when you can't pick up.",
+  },
+  {
+    q: "Does it replace my phone or my receptionist?",
+    a: "No, it backs them up. It catches the calls that would have gone to voicemail; nights, weekends, when you're under a sink or up on a roof. You still talk to every customer; you just stop losing the ones you couldn't get to in time.",
+  },
+  {
+    q: "How much does missed-call text-back cost?",
+    a: "It's scoped with the rest of your setup, so I won't throw out a number that turns out wrong. Book a free call, tell me how your calls come in, and I'll give you one real price, no pressure and no obligation.",
+  },
+];
+---
+
+<Layout
+  title="Missed-Call Text-Back for Local Businesses"
+  description="Every missed call is a job that called your competitor next. Missed-call text-back replies to callers you can't reach in seconds, so you stop losing work to voicemail."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map((f) => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://reynahouse.ai/" },
+        { "@type": "ListItem", "position": 2, "name": "Missed-Call Text-Back", "item": "https://reynahouse.ai/missed-call-text-back/" },
+      ],
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main class="page">
+    <article class="intro">
+      <div class="intro__container">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a> <span aria-hidden="true">/</span> Missed-Call Text-Back
+        </nav>
+        <span class="overline">STOP LOSING JOBS TO VOICEMAIL</span>
+        <h1 class="h1">Missed-Call Text-Back for Local Businesses</h1>
+        <p class="lede">
+          You're on a job with your hands full. The phone rings, you can't get to
+          it, and it goes to voicemail. Here's the part that costs you: most people
+          won't leave one. They just hang up and call the next name on the list.
+          That missed call was a paying job, and you never even knew it came in.
+        </p>
+        <p class="body body--gold">
+          The fix isn't answering every call. It's making sure every caller hears
+          back before they reach your competitor.
+        </p>
+      </div>
+    </article>
+
+    <section class="section">
+      <div class="section__container">
+        <h2 class="h2">How It Works</h2>
+        <p class="body">
+          It runs quietly in the background on the phone number you already use.
+          You don't change a thing about how you take calls.
+        </p>
+        <div class="steps">
+          <div class="step">
+            <h3>A call comes in that you can't answer</h3>
+            <p>Busy, after hours, already on another line; whatever the reason, the call would normally die in voicemail.</p>
+          </div>
+          <div class="step">
+            <h3>A text goes out in seconds, in your name</h3>
+            <p>"Sorry I missed your call, this is Edward, what can I help you with?" The caller knows they were seen, not ignored.</p>
+          </div>
+          <div class="step">
+            <h3>The conversation keeps going by text</h3>
+            <p>They reply, you answer when you get a minute, and the job gets booked; instead of going to whoever picked up first.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <div class="section__container">
+        <span class="overline overline--light">WHY IT WORKS</span>
+        <h2 class="h2 h2--light">The Business That Answers First Wins</h2>
+        <p class="body body--light">
+          When a customer needs a plumber, an electrician, a tow, they don't call
+          one business and wait. They call down the list until someone responds.
+          A callback an hour later is too late; the job's already booked with
+          someone else. A text in the first few seconds puts you at the front of
+          that line without you stopping what you're doing. You're not buying a
+          fancy phone system. You're buying speed, and speed is what closes the job.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--tint">
+      <div class="section__container">
+        <h2 class="h2">Voicemail vs. Text-Back</h2>
+        <div class="versus">
+          <div class="vs vs--bad">
+            <span class="vs__label">What happens now</span>
+            <ul>
+              <li>Call goes to voicemail</li>
+              <li>Caller hangs up without leaving one</li>
+              <li>They call your competitor next</li>
+              <li>You never knew the job existed</li>
+            </ul>
+          </div>
+          <div class="vs vs--good">
+            <span class="vs__label">With text-back</span>
+            <ul>
+              <li>Caller gets a reply in seconds</li>
+              <li>They feel seen and text right back</li>
+              <li>You answer when your hands are free</li>
+              <li>The job stays yours</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--cta">
+      <div class="section__container">
+        <h2 class="h2">Want It Set Up on Your Line?</h2>
+        <p class="body">
+          Tell me how your calls come in and I'll show you exactly how this would
+          work for your business, and what it costs. Book a free call; no pitch,
+          no pressure, no obligation.
+        </p>
+        <div class="cta__actions">
+          <a href="/#contact" class="btn btn--primary">Book a Free Call &rarr;</a>
+          <a href="tel:+19093410243" class="btn btn--ghost">Or call 909-341-0243</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tint">
+      <div class="section__container section__container--narrow">
+        <h2 class="h2">Common Questions</h2>
+        {faqs.map((f) => (
+          <details class="faq">
+            <summary class="faq__q">{f.q}</summary>
+            <p class="faq__a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="related">
+      <div class="related__container">
+        <p class="related__title">Keep Reading</p>
+        <div class="related__grid">
+          <a class="related__card" href="/small-business-website-cost/">
+            <span>What Does a Small Business Website Cost?</span>
+            <small>The four ways to buy one, and the rent-vs-own trap.</small>
+          </a>
+          <a class="related__card" href="/do-you-own-your-website/">
+            <span>Do You Own Your Website?</span>
+            <small>The question to ask before you pay anyone.</small>
+          </a>
+          <a class="related__card" href="/why-not-showing-on-google/">
+            <span>Why Isn't My Business on Google?</span>
+            <small>The usual reasons, and how to fix them.</small>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page { background-color: var(--white); }
+  .intro { background: linear-gradient(135deg, var(--navy) 0%, #1a1a2e 100%); padding: 72px 24px 64px; }
+  .intro__container { max-width: 820px; margin: 0 auto; }
+  .crumbs { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--tan); margin-bottom: 24px; }
+  .crumbs a { color: var(--copper-light); }
+  .crumbs a:hover { color: var(--copper); }
+  .overline { display: block; font-family: 'IBM Plex Mono', monospace; color: var(--copper-light); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; margin-bottom: 16px; }
+  .h1 { font-family: 'Bebas Neue', sans-serif; color: var(--white); font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05; margin-bottom: 24px; }
+  .lede { font-family: 'Inter', sans-serif; color: var(--white); font-size: 1.15rem; line-height: 1.7; margin-bottom: 16px; }
+  .section { padding: 64px 24px; }
+  .section--tint { background-color: var(--cream); }
+  .section--dark { background: linear-gradient(135deg, var(--forest) 0%, #1a2a1c 100%); }
+  .section--cta { background-color: var(--white); text-align: center; }
+  .section__container { max-width: 920px; margin: 0 auto; }
+  .section__container--narrow { max-width: 760px; }
+  .h2 { font-family: 'Bebas Neue', sans-serif; color: var(--navy); font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.1; margin-bottom: 20px; }
+  .h2--light { color: var(--white); }
+  .body { font-family: 'Inter', sans-serif; color: var(--dark); font-size: 1.05rem; line-height: 1.75; margin-bottom: 16px; }
+  .body--light { color: var(--cream); }
+  .body--gold { color: var(--gold); font-weight: 600; }
+
+  .steps { display: grid; gap: 16px; margin-top: 28px; counter-reset: step; }
+  .step { position: relative; padding: 20px 20px 20px 68px; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; }
+  .step::before { counter-increment: step; content: counter(step); position: absolute; left: 20px; top: 20px; width: 34px; height: 34px; display: grid; place-items: center; background: var(--copper); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; border-radius: 50%; }
+  .step h3 { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--navy); font-size: 1.05rem; margin-bottom: 6px; }
+  .step p { font-family: 'Inter', sans-serif; color: var(--dark); font-size: 0.95rem; line-height: 1.6; }
+
+  .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+  .vs { border-radius: 10px; padding: 24px; }
+  .vs--bad { background: #fbf4f2; border: 1px solid #e3c9c0; }
+  .vs--good { background: #fffdf8; border: 2px solid var(--copper); }
+  .vs__label { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; display: block; }
+  .vs--bad .vs__label { color: #a85b45; }
+  .vs--good .vs__label { color: var(--copper-dark); }
+  .vs ul { list-style: none; }
+  .vs li { font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.5; color: var(--dark); padding: 8px 0 8px 26px; position: relative; }
+  .vs--bad li::before { content: '✕'; position: absolute; left: 0; color: #a85b45; font-weight: 700; }
+  .vs--good li::before { content: '✓'; position: absolute; left: 0; color: var(--copper-dark); font-weight: 700; }
+
+  .cta__actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 28px; }
+  .btn { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; padding: 14px 26px; border-radius: 8px; transition: background-color 0.2s ease, color 0.2s ease; }
+  .btn--primary { background-color: var(--copper); color: var(--white); }
+  .btn--primary:hover { background-color: #b8843f; }
+  .btn--ghost { border: 1px solid var(--navy); color: var(--navy); }
+  .btn--ghost:hover { background-color: var(--navy); color: var(--white); }
+  .btn:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+  .faq { border-bottom: 1px solid var(--tan); padding: 16px 0; }
+  .faq__q { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.95rem; cursor: pointer; list-style: none; padding: 4px 0; }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q::before { content: '+ '; font-weight: 700; }
+  details[open] .faq__q::before { content: '− '; }
+  .faq__a { font-family: 'Inter', sans-serif; color: var(--navy); font-size: 0.97rem; line-height: 1.7; padding: 12px 0 4px; }
+
+  .related { background: var(--cream); padding: 48px 24px; }
+  .related__container { max-width: 920px; margin: 0 auto; }
+  .related__title { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related__card { display: block; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; padding: 18px; transition: border-color 0.2s ease; }
+  .related__card:hover { border-color: var(--copper); }
+  .related__card span { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--navy); font-size: 1rem; line-height: 1.3; }
+  .related__card small { display: block; font-family: 'Inter', sans-serif; color: var(--dark); font-size: 0.85rem; margin-top: 6px; line-height: 1.5; }
+
+  @media (max-width: 700px) {
+    .versus { grid-template-columns: 1fr; }
+    .related__grid { grid-template-columns: 1fr; }
+  }
+</style>
