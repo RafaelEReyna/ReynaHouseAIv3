@@ -12,9 +12,10 @@ import ibmPlexMono400Url from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-lat
 interface Props {
   title: string;
   description: string;
+  ogImage?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogImage = 'https://reynahouse.ai/images/rhai_og.png' } = Astro.props;
 
 // Per-page canonical + og:url. Astro.site is https://reynahouse.ai (astro.config).
 // Every page now self-declares its canonical URL instead of inheriting the
@@ -86,12 +87,13 @@ const fontFaceCSS = `
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content="https://reynahouse.ai/images/rhai_og.png" />
+    <meta property="og:image" content={ogImage} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Fonts: self-hosted via @fontsource, preloaded + inline @font-face so
          they register before the bundled CSS arrives (kills hero CLS). -->

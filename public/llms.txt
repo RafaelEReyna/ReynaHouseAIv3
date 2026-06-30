@@ -1,0 +1,24 @@
+# Reyna House AI
+
+> Reyna House AI builds custom, fast websites and AI automation for local service businesses (plumbers, HVAC, roofers, electricians, landscapers, painters, concrete, hair salons, and more). Clients own their site outright; no monthly website rental. Founded by Edward Reyna, based in Big Bear, California, building for businesses across the United States. Phone (909) 341-0243.
+
+## Services by trade
+- [Websites for Local Service Businesses (hub)](https://reynahouse.ai/websites-for-local-service-businesses/): Overview of every trade and service built for.
+- [Websites for Contractors](https://reynahouse.ai/websites-for-contractors/): Custom sites for general contractors and the building trades.
+- [Websites for Plumbers](https://reynahouse.ai/websites-for-plumbers/): Sites built so emergency and service calls get booked.
+- [Websites for HVAC Contractors](https://reynahouse.ai/websites-for-hvac/): Sites built so no cool and no heat calls get answered and installs get booked.
+- [Websites for Roofers](https://reynahouse.ai/websites-for-roofers/): Sites built so storm damage and replacement jobs find you first.
+- [Websites for Electricians](https://reynahouse.ai/websites-for-electricians/): Sites built so panel upgrades, EV chargers, and service calls get booked.
+- [Websites for Landscapers](https://reynahouse.ai/websites-for-landscapers/): Sites built so yard jobs and maintenance plans keep your season full.
+- [Websites for Painters](https://reynahouse.ai/websites-for-painters/): Sites built so interior and exterior jobs keep your brushes busy.
+- [Websites for Concrete Contractors](https://reynahouse.ai/websites-for-concrete/): Sites built so driveway, patio, and slab jobs keep your crews pouring.
+- [Websites for Hair Salons](https://reynahouse.ai/websites-for-hair-salons/): Sites built around online booking so new clients fill your chairs.
+
+## Guides
+- [What a Small Business Website Costs](https://reynahouse.ai/small-business-website-cost/): Honest pricing ranges and what drives them.
+- [Missed Call Text Back](https://reynahouse.ai/missed-call-text-back/): Stop losing jobs to voicemail when you cannot pick up.
+- [Do You Own Your Website?](https://reynahouse.ai/do-you-own-your-website/): Why ownership beats renting a site on a builder.
+- [Why Isn't My Business on Google?](https://reynahouse.ai/why-not-showing-on-google/): Common reasons and how to fix them.
+
+## About
+- [Reyna House AI home](https://reynahouse.ai/): Web design and AI automation for local service businesses. Founder Edward Reyna. Built in the USA.
