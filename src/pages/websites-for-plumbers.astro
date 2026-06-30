@@ -1,7 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import liveShot from '../assets/images/bigbearlake_plumber_hero.jpg';
 
 const includes = [
   "Home page", "Service pages", "About page", "Contact page",
@@ -119,7 +121,19 @@ const faqs = [
           to turn a search into a booked call. It's the same kind of site I'd
           build for you.
         </p>
-        <div style="margin-top: 8px;">
+        <a href="https://bigbearlakeplumber.com/" class="live-shot" target="_blank" rel="noopener noreferrer">
+          <Image
+            src={liveShot}
+            alt="Screenshot of the bigbearlakeplumber.com website I built"
+            widths={[480, 768, 1200]}
+            sizes="(max-width: 700px) 92vw, 640px"
+            width={1200}
+            height={800}
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <div style="margin-top: 20px;">
           <a href="https://bigbearlakeplumber.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">View bigbearlakeplumber.com &rarr;</a>
         </div>
       </div>
@@ -326,6 +340,9 @@ const faqs = [
   .section--cta { background-color: var(--white); text-align: center; }
   .section__container { max-width: 920px; margin: 0 auto; }
   .section__container--narrow { max-width: 760px; }
+  .live-shot { display: block; max-width: 640px; margin-top: 24px; border-radius: 12px; overflow: hidden; border: 1px solid var(--tan); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); transition: box-shadow 0.25s ease, transform 0.25s ease; }
+  .live-shot:hover { box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18); transform: translateY(-3px); }
+  .live-shot img { width: 100%; height: auto; display: block; }
   .h2 { font-family: 'Bebas Neue', sans-serif; color: var(--navy); font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.1; margin-bottom: 20px; }
   .h2--light { color: var(--white); }
   .body { font-family: 'Inter', sans-serif; color: var(--dark); font-size: 1.05rem; line-height: 1.75; margin-bottom: 16px; }
