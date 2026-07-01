@@ -129,7 +129,14 @@ const fontFaceCSS = `
             "longitude": -116.8390
           },
           "priceRange": "$$",
-          "areaServed": ["California", "Nationwide"],
+          "areaServed": [
+            { "@type": "AdministrativeArea", "name": "Inland Empire" },
+            { "@type": "City", "name": "Big Bear" },
+            { "@type": "City", "name": "San Bernardino" },
+            { "@type": "City", "name": "Riverside" },
+            { "@type": "State", "name": "California" },
+            { "@type": "Country", "name": "United States" }
+          ],
           "serviceType": ["Web Design", "AI Automation", "Landing Pages"],
           "founder": { "@id": "https://reynahouse.ai/#edward" },
           "employee": { "@id": "https://reynahouse.ai/#edward" },
@@ -172,7 +179,7 @@ const fontFaceCSS = `
                   "name": "Foundation Site",
                   "description": "4–5 page custom website with mobile optimization, Google Business Profile integration, basic local SEO, click-to-call and contact form. Live in 1 week. Free Netlify hosting included.",
                   "provider": { "@id": "https://reynahouse.ai/#org" },
-                  "areaServed": ["California", "Nationwide"]
+                  "areaServed": ["Inland Empire", "California", "United States"]
                 }
               },
               {
@@ -182,7 +189,7 @@ const fontFaceCSS = `
                   "name": "Authority Site",
                   "description": "Foundation Site plus callback automation, Google Maps and schema markup, simple lead tracking. Live in 1 week.",
                   "provider": { "@id": "https://reynahouse.ai/#org" },
-                  "areaServed": ["California", "Nationwide"]
+                  "areaServed": ["Inland Empire", "California", "United States"]
                 }
               },
               {
@@ -192,7 +199,7 @@ const fontFaceCSS = `
                   "name": "Monthly Care Plan",
                   "description": "Ongoing support including content updates, uptime monitoring, form testing, and Google review link management.",
                   "provider": { "@id": "https://reynahouse.ai/#org" },
-                  "areaServed": ["California", "Nationwide"]
+                  "areaServed": ["Inland Empire", "California", "United States"]
                 }
               }
             ]

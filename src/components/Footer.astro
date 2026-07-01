@@ -103,7 +103,14 @@ import logo from '../assets/images/logo_crown_only_mustard_gold.png';
 
     <!-- Bottom Bar -->
     <div class="footer__bottom">
-      <p>Built in Big Bear, CA. Serving contractors nationwide.</p>
+      <p>Based in Big Bear, CA. Serving Inland Empire service businesses and clients nationwide.</p>
+      <nav class="footer__region" aria-label="Inland Empire service area">
+        <a href="/inland-empire/">Inland Empire</a>
+        <span aria-hidden="true">·</span>
+        <a href="/inland-empire/san-bernardino/">San Bernardino</a>
+        <span aria-hidden="true">·</span>
+        <a href="/inland-empire/riverside/">Riverside</a>
+      </nav>
       <a href="/privacy" class="footer__privacy">Privacy Policy</a>
     </div>
   </div>
@@ -244,6 +251,31 @@ import logo from '../assets/images/logo_crown_only_mustard_gold.png';
     font-family: 'Inter', sans-serif;
     color: var(--tan);
     font-size: 0.8rem;
+  }
+
+  .footer__region {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .footer__region a {
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-size: 0.8rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer__region a:hover {
+    color: var(--copper);
+  }
+
+  .footer__region span {
+    color: rgba(191, 169, 132, 0.4);
+    font-size: 0.7rem;
   }
 
   .footer__privacy {
