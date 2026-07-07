@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import crown from '../assets/images/logo_crown_only_mustard_gold.png';
+---
+
+<Layout
+  title="SMS Terms & Conditions"
+  description="Terms and conditions for text messages sent by Reyna House AI's Call Catcher missed call text back service, including consent, message frequency, and opt-out."
+>
+  <header class="legalbar">
+    <a href="/" class="legalbar__logo">
+      <Image src={crown} alt="" width={56} densities={[1, 2]} />
+      <span>REYNA HOUSE AI</span>
+    </a>
+    <a href="/" class="legalbar__back">&larr; Back to home</a>
+  </header>
+
+  <main class="legal">
+    <h1 class="legal__title">SMS Terms &amp; Conditions</h1>
+    <p class="legal__updated">Last updated: July 7, 2026</p>
+
+    <p>These terms govern text messages sent by <strong>Call Catcher</strong>, the missed call text back service operated by Reyna House AI for its own business line and for participating local service businesses.</p>
+
+    <h2>Program description</h2>
+    <p>When you place a phone call to a participating business and the call goes unanswered, you receive one automated text message from that business acknowledging your missed call and asking what you need. Any further messages are replies within that same conversation between you and the business.</p>
+
+    <h2>Consent</h2>
+    <p>By calling a participating business at its published phone number, you consent to receive the missed call acknowledgment text described above. Consent is not a condition of any purchase. Text messaging originator opt-in data and consent will not be shared with any third parties; no mobile information is shared with third parties or affiliates for marketing or promotional purposes. See our <a href="/privacy/">Privacy Policy</a>.</p>
+
+    <h2>Message frequency</h2>
+    <p>Message frequency varies. You will typically receive one message per missed call, plus any replies in that conversation.</p>
+
+    <h2>Fees</h2>
+    <p>Message and data rates may apply according to your mobile carrier plan. Reyna House AI does not charge you to receive messages.</p>
+
+    <h2>Opting out</h2>
+    <p>Reply <strong>STOP</strong> to any message to opt out at any time. After you send STOP, you will receive one final message confirming your opt-out and no further messages will be sent to your number.</p>
+
+    <h2>Help</h2>
+    <p>Reply <strong>HELP</strong> to any message for assistance, or contact us at <a href="mailto:edward@reynahouse.ai">edward@reynahouse.ai</a> or <a href="tel:+19093410243">909-341-0243</a>.</p>
+
+    <h2>Carriers</h2>
+    <p>Mobile carriers are not liable for delayed or undelivered messages.</p>
+
+    <h2>Changes</h2>
+    <p>We may update these terms from time to time. When we do, we will change the "Last updated" date at the top of this page.</p>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legalbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 24px;
+    background: var(--navy);
+  }
+
+  .legalbar__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+
+  .legalbar__logo img {
+    height: 28px;
+    width: auto;
+  }
+
+  .legalbar__back {
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+  }
+
+  .legalbar__back:hover {
+    color: var(--copper-light);
+  }
+
+  .legal {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  .legal__title {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .legal__updated {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--copper-dark);
+    font-size: 0.85rem;
+    margin-bottom: 28px;
+  }
+
+  .legal h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 1.2rem;
+    margin: 32px 0 10px;
+  }
+
+  .legal p,
+  .legal li {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .legal p {
+    margin-bottom: 12px;
+  }
+
+  .legal ul {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  .legal li {
+    margin-bottom: 10px;
+  }
+
+  .legal a {
+    color: var(--copper-dark);
+    text-decoration: underline;
+  }
+</style>
