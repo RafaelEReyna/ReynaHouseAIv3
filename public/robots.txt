@@ -32,5 +32,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://reynahouse.ai/sitemap.xml
+Sitemap: https://reynahouse.ai/sitemap-index.xml
 # LLM content map: https://reynahouse.ai/llms.txt
