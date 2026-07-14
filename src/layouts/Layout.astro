@@ -228,12 +228,27 @@ const fontFaceCSS = `
 
     <!-- Google Analytics (GA4) — deferred to first user interaction so it
          never runs inside Lighthouse's FCP→TTI window. 15 s fallback covers
-         real users who load and read without interacting. -->
+         real users who load and read without interacting.
+         Internal-traffic opt-out: visit any page with ?internal=1 once per
+         browser to stop that device from ever sending GA hits (?internal=0
+         re-enables). localhost never sends. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+
+      var __rhInternal = (function () {
+        try {
+          var q = new URLSearchParams(window.location.search);
+          if (q.get('internal') === '1') localStorage.setItem('rh_internal', '1');
+          if (q.get('internal') === '0') localStorage.removeItem('rh_internal');
+          if (localStorage.getItem('rh_internal') === '1') return true;
+        } catch (e) { /* storage blocked — treat as external */ }
+        var h = window.location.hostname;
+        return h === 'localhost' || h === '127.0.0.1';
+      })();
+
       function loadGA() {
-        if (window.__gaLoaded) return;
+        if (__rhInternal || window.__gaLoaded) return;
         window.__gaLoaded = true;
         var s = document.createElement('script');
         s.async = true;
@@ -242,11 +257,30 @@ const fontFaceCSS = `
         gtag('js', new Date());
         gtag('config', 'G-GRP2HX7MV8');
       }
+
+      // Shared event helper for components (Calendly bookings, form leads).
+      window.rhTrack = function (name, params) {
+        loadGA();
+        gtag('event', name, params || {});
+      };
+
       var events = ['scroll','mousemove','touchstart','keydown','click'];
       var opts = { once: true, passive: true, capture: true };
       function attach(e){ window.addEventListener(e, loadGA, opts); }
       events.forEach(attach);
       setTimeout(loadGA, 15000);
+
+      // Phone and email clicks are first-class conversions for a call-first
+      // sales motion — delegated here so every page's tel:/mailto: links count.
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"], a[href^="mailto:"]') : null;
+        if (!a) return;
+        var href = a.getAttribute('href');
+        window.rhTrack(href.indexOf('tel:') === 0 ? 'phone_call_click' : 'email_click', {
+          link_url: href,
+          page_path: window.location.pathname
+        });
+      }, { capture: true, passive: true });
     </script>
   </head>
   <body>

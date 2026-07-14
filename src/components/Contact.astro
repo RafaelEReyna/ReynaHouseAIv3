@@ -50,11 +50,16 @@
     <form
       name="contact"
       method="POST"
+      action="/?submitted=true"
       data-netlify="true"
+      netlify-honeypot="bot-field"
       class="contact__form"
       id="contact-form"
     >
       <input type="hidden" name="form-name" value="contact" />
+      <p class="contact__hp" aria-hidden="true">
+        <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      </p>
 
       <div class="contact__field">
         <label for="name">Your Name *</label>
@@ -127,6 +132,7 @@
           if (response.ok) {
             form.style.display = 'none';
             if (success) success.style.display = 'block';
+            if (window.rhTrack) window.rhTrack('generate_lead', { method: 'contact_form' });
           } else {
             alert('Something went wrong. Please try again or email edward@reynahouse.ai directly.');
           }
@@ -146,6 +152,15 @@
     var target = document.getElementById('calendly-widget');
     if (!target) return;
     var loaded = false;
+
+    // A completed booking is the site's primary conversion — Calendly
+    // announces it via postMessage from the embedded iframe.
+    window.addEventListener('message', function (e) {
+      if (e.origin !== 'https://calendly.com') return;
+      if (e.data && e.data.event === 'calendly.event_scheduled') {
+        if (window.rhTrack) window.rhTrack('calendly_booked', { method: 'calendly_embed' });
+      }
+    });
 
     function loadCalendly() {
       if (loaded) return;
@@ -318,6 +333,15 @@
     font-style: italic;
     font-size: 0.95rem;
     margin-bottom: 32px;
+  }
+
+  /* Honeypot — hidden from humans, visible to naive form bots */
+  .contact__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 
   /* Form */
