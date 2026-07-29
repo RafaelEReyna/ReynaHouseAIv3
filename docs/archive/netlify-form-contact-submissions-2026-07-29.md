@@ -3,6 +3,12 @@
 Captured 2026-07-29 before retiring the `contact` form (id `69a5369d6d8d1200080ed2ac`)
 in favor of `rh-inbound-9f4c` behind `netlify/functions/contact-submit.mjs`.
 
+**Status: the `contact` form was deleted via `netlify api deleteSiteForm` on
+2026-07-29 with Edward's go-ahead.** Deleting the markup alone was not enough —
+the endpoint kept accepting POSTs. Re-tested immediately after deletion: the
+same POST that had succeeded now returns 404 and creates nothing. This file is
+the only remaining record of those submissions.
+
 **Nothing here is a real lead.** Five are cold-outreach spam, two are Edward's own
 launch tests, one is the verification POST that proved the old endpoint was still
 accepting submissions after the form was removed from the page HTML.
