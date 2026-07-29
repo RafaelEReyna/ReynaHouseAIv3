@@ -226,9 +226,13 @@ const fontFaceCSS = `
 
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Analytics (GA4) — deferred to first user interaction so it
-         never runs inside Lighthouse's FCP→TTI window. 15 s fallback covers
-         real users who load and read without interacting.
+    <!-- Google Analytics (GA4) — deferred to browser idle so it never runs
+         inside Lighthouse's FCP→TTI window, but still fires on EVERY session.
+         Do not gate this on first interaction: a mobile visitor who lands,
+         reads nothing, and leaves never scrolls or taps, so an interaction
+         gate silently drops exactly the bounced sessions you most need to
+         measure. requestIdleCallback keeps it off the critical path without
+         that blind spot.
          Internal-traffic opt-out: visit any page with ?internal=1 once per
          browser to stop that device from ever sending GA hits (?internal=0
          re-enables). localhost never sends. -->
@@ -264,11 +268,24 @@ const fontFaceCSS = `
         gtag('event', name, params || {});
       };
 
+      // Primary trigger: browser idle, capped so a busy main thread can't
+      // stall the page_view past a short read-and-leave visit.
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGA, { timeout: 2500 });
+      } else {
+        setTimeout(loadGA, 1200);
+      }
+
+      // Accelerator: if the visitor interacts before idle fires, load now.
       var events = ['scroll','mousemove','touchstart','keydown','click'];
       var opts = { once: true, passive: true, capture: true };
       function attach(e){ window.addEventListener(e, loadGA, opts); }
       events.forEach(attach);
-      setTimeout(loadGA, 15000);
+
+      // Last resort: a page hidden before either path ran still gets counted.
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') loadGA();
+      }, { once: true });
 
       // Phone and email clicks are first-class conversions for a call-first
       // sales motion — delegated here so every page's tel:/mailto: links count.

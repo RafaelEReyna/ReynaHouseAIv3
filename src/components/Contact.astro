@@ -72,9 +72,18 @@
       </div>
 
       <div class="contact__field">
-        <label for="phone">Phone Number *</label>
-        <input type="tel" id="phone" name="phone" autocomplete="tel" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" />
       </div>
+
+      <div class="contact__field">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel" />
+      </div>
+
+      <p class="contact__reach-note" id="reach-note">
+        Email or phone; whichever you'd rather I use. One is enough.
+      </p>
 
       <div class="contact__field">
         <label for="best-time">Best Time to Call</label>
@@ -119,9 +128,31 @@
       if (success) success.style.display = 'block';
     }
 
+    // Neither email nor phone is individually required — but one of them has
+    // to be there or the lead is unreachable. Enforced here rather than with
+    // `required` on both, which is what made people abandon the form.
+    var email = document.getElementById('email');
+    var phone = document.getElementById('phone');
+    function syncReachValidity() {
+      if (!email || !phone) return;
+      var ok = email.value.trim() !== '' || phone.value.trim() !== '';
+      var msg = ok ? '' : 'Add an email or a phone number so I can reply.';
+      email.setCustomValidity(msg);
+      phone.setCustomValidity(msg);
+    }
+    if (email && phone) {
+      email.addEventListener('input', syncReachValidity);
+      phone.addEventListener('input', syncReachValidity);
+      email.setAttribute('aria-describedby', 'reach-note');
+      phone.setAttribute('aria-describedby', 'reach-note');
+      syncReachValidity();
+    }
+
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
+        syncReachValidity();
+        if (!form.reportValidity()) return;
         var formData = new URLSearchParams(new FormData(form)).toString();
         fetch('/', {
           method: 'POST',
@@ -362,6 +393,14 @@
 
   .contact__field--full {
     grid-column: 1 / -1;
+  }
+
+  .contact__reach-note {
+    grid-column: 1 / -1;
+    font-family: 'Inter', sans-serif;
+    color: var(--tan);
+    font-size: 0.85rem;
+    margin: -8px 0 0;
   }
 
   .contact__field label {
