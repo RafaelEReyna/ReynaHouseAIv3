@@ -242,3 +242,36 @@
 - **Cause:** Treated deploy and commit as separate optional steps instead of a mandatory sequence: commit → push → deploy.
 - **Fix:** Both changes were eventually committed together.
 - **Prevention:** Never deploy uncommitted changes to production. The sequence is always: edit → commit → push → deploy. Code should be in version control before it goes live.
+
+### Analytics & Anti-Spam (Session 5, 2026-07-29)
+
+#### 33. GA was gated on first interaction, so bounced mobile sessions were never counted
+- **What happened:** GA only loaded after scroll/mousemove/touch/keydown/click, with a 15 s fallback. A mobile visitor who landed, read nothing, and left in a few seconds triggered none of those and was never recorded. Session counts and bounce rate were both wrong, and the error skewed exactly toward the visitors worth studying.
+- **Cause:** Optimized for the Lighthouse score in isolation without asking what the deferral did to data completeness.
+- **Fix:** `requestIdleCallback` with a 2500 ms timeout as the primary trigger, interaction listeners kept as an accelerator, plus a `visibilitychange` backstop. Still outside the FCP→TTI window.
+- **Prevention:** Deferring a third-party script is a performance decision AND a measurement decision. Ask what population the deferral silently excludes before shipping it.
+
+#### 34. Contact form required a phone number and had no email field
+- **What happened:** 7 `form_start` events over 90 days produced 0 submissions. The form marked Phone as required and offered no email input at all, so a stranger could not make contact without handing over a phone number.
+- **Cause:** Built around the call-first sales motion without considering that a first-touch web visitor has not agreed to a phone call yet.
+- **Fix:** Added an email field, made phone optional, enforced "email OR phone" with `setCustomValidity` so no lead arrives unreachable.
+- **Prevention:** For a cold web form, ask for the lowest-commitment contact method that still works. Required fields are where conversion dies.
+
+#### 35. Netlify form had no submission notification configured at all
+- **What happened:** The site collected form submissions for five months with zero notification hooks. Any real lead would have sat unseen in the Netlify dashboard.
+- **Cause:** Form wiring was verified end-to-end (submission lands) but the delivery path (Edward finds out) was never checked.
+- **Fix:** Created a `submission_created` email hook via `netlify api createHookBySiteId`.
+- **Prevention:** "The form works" means the notification arrived, not that the submission was stored. Test the whole chain.
+
+#### 36. Declaring the Netlify form inline exposed form-name and let bots bypass the honeypot
+- **What happened:** Four spam submissions cleared the honeypot between June and July. The homepage carried `data-netlify="true"` and a readable `<input name="form-name" value="contact">`, so scrapers could POST straight to Netlify's form endpoint. The honeypot never ran because the form was never actually used.
+- **Cause:** Assumed the honeypot was the defense. It only defends against bots that submit the form as rendered, which is the minority.
+- **Fix:** Homepage form no longer declares a Netlify form. The real form is declared only on the noindexed, sitemap-excluded `/forms/registry/` page under an opaque name; `netlify/functions/contact-submit.mjs` gates every submission and forwards clean ones.
+- **Second discovery:** Removing the form from the page HTML does **not** deregister it. Netlify kept accepting POSTs to `form-name=contact` after it vanished from every deploy; a verification POST landed successfully. Retiring a form requires `netlify api deleteSiteForm`, not just deleting the markup.
+- **Prevention:** Never verify a security fix by reading the code. POST the old attack path and confirm the submission count did not move.
+
+#### 37. The chat function was unauthenticated with no rate limit
+- **What happened:** `netlify/functions/chat.mjs` accepted unlimited anonymous POSTs, each one billing the Anthropic account. Found incidentally while closing the form hole.
+- **Cause:** Built for the happy path; abuse was never modeled.
+- **Fix:** 30/hour per IP via the shared limiter in `netlify/functions/_ratelimit.mjs` (Netlify Blobs, fails open).
+- **Prevention:** Any public endpoint that spends money needs a ceiling on day one.

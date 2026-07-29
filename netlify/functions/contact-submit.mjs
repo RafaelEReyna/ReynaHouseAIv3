@@ -12,7 +12,10 @@ const MIN_FILL_MS = 3000;
 // Stale tab guard. A token older than this is refused; the visitor reloads.
 const MAX_FILL_MS = 12 * 60 * 60 * 1000;
 
-const RATE = { max: 3, windowMs: 60 * 60 * 1000 };
+// Counted BEFORE the spam checks, so a bot blasting the endpoint burns its own
+// budget on rejections. 5/hour leaves a real person room to resubmit after a
+// mistake while still stopping a flood cold.
+const RATE = { max: 5, windowMs: 60 * 60 * 1000 };
 
 // Verbatim fragments from the spam that got through the old honeypot, plus the
 // usual form-blast tells. Matched case-insensitively against the whole payload.

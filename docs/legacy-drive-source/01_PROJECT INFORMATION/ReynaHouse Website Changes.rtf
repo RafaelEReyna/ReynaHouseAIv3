@@ -1,0 +1,117 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 AppleColorEmoji;\f2\froman\fcharset0 Times-Bold;
+\f3\fmodern\fcharset0 Courier-Bold;\f4\froman\fcharset0 Times-Roman;\f5\fmodern\fcharset0 Courier;
+\f6\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;\red179\green179\blue179;
+\red109\green109\blue109;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c0\c84706;\cssrgb\c75294\c75294\c75294;
+\cssrgb\c50196\c50196\c50196;}
+\margl1440\margr1440\vieww12540\viewh16140\viewkind1
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Important Changes to ReynaHouse.ai\
+\
+\
+You commented out the Services Section. It is under portfolio: \
+\
+\
+\
+\
+\
+\
+You commented out the button that led to the Services Section: \
+\
+\{/*\}\
+              <button\
+                onClick=\{() => scrollToSection('portfolio')\}\
+                className="group px-8 py-4 bg-[#334668]/50 backdrop-blur-sm border-2 border-[#C9B796] rounded-xl font-bold text-white text-lg hover:bg-[#334668]/70 transition-all duration-300 transform hover:scale-105"\
+              >\
+                See My Work\
+              </button>\
+              */\}\
+\
+\
+This is in Hero.tsx\
+\
+\
+You commented out the \'93portfolio\'94 button on top in hero: \
+\
+  const navItems = [\
+    \{ label: 'Home', id: 'home' \},\
+    \{ label: 'Pricing', id: 'pricing' \},\
+    \{ label: 'About', id: 'about', isLink: true \},\
+    // \{ label: 'Portfolio', id: 'portfolio' \},\
+    \{ label: 'Contact', id: 'contact' \},\
+  ];\
+\
+\
+Notice that this time you used \'93//\'93 instead of \'93\{/*\'85*/\} \
+\
+This is because of: 
+\f1\fs28 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 1\uc0\u65039 \u8419 
+\f2\b  
+\f3\fs30\fsmilli15210 \{/* ... */\}
+\f2\fs28  \'97 JSX (HTML inside React)\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f4\b0\fs24 \cf0 Use this when you are inside JSX, like inside a 
+\f5\fs26 return()
+\f4\fs24  with HTML-like elements:\
+\pard\pardeftab720\partightenfactor0
+
+\f5\fs26 \cf0 jsx\
+\pard\pardeftab720\partightenfactor0
+
+\f6\fs22 \cf3 \cb4 \strokec3 CopyEdit
+\f5\fs26 \cf0 \cb1 \strokec2 \
+return (\
+  <div>\
+    \{/* This is JSX commenting */\}\
+    <button>Click Me</button>\
+  </div>\
+);\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f4\fs24 \cf0 This works because JSX is HTML-like syntax inside JavaScript, so 
+\f5\fs26 \{/* ... */\}
+\f4\fs24  is the valid way to comment in that context.\
+\pard\pardeftab720\partightenfactor0
+\cf5 \strokec5 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f1\fs28 \cf0 \strokec2 2\uc0\u65039 \u8419 
+\f2\b  
+\f3\fs30\fsmilli15210 //
+\f2\fs28  \'97 Regular JavaScript\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f4\b0\fs24 \cf0 Use this for normal JavaScript code like arrays, functions, variables \'97 outside of JSX:\
+\pard\pardeftab720\partightenfactor0
+
+\f5\fs26 \cf0 javascript\
+\pard\pardeftab720\partightenfactor0
+
+\f6\fs22 \cf3 \cb4 \strokec3 CopyEdit
+\f5\fs26 \cf0 \cb1 \strokec2 \
+const navItems = [\
+  \{ label: 'Home', id: 'home' \},\
+  // \{ label: 'Portfolio', id: 'portfolio' \},  // JS single-line comment\
+  \{ label: 'Contact', id: 'contact' \},\
+];\
+\
+\
+You changed Quick Links on Botton to remove portfolio: \
+\
+  Quick Links\
+            </h4>\
+            <nav className="space-y-3">\
+              \{[\
+                \{ label: 'Home', id: 'home' \},\
+                \{ label: 'Pricing', id: 'pricing' \},\
+                \{ label: 'About', id: 'about', isLink: true \},\
+                //\{ label: 'Portfolio', id: 'portfolio' \},\
+                \{ label: 'Contact', id: 'contact' \}\
+              ].map((item) => (\
+                item.isLink ? (\
+                  <Link}
