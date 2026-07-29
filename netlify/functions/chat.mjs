@@ -9,6 +9,10 @@ const STORE = 'alyssa-conversations';
 // genuine visitor conversation and far below anything worth scripting.
 const RATE = { max: 30, windowMs: 60 * 60 * 1000 };
 
+// Ceiling on one stored transcript, so no single conversation blob can grow
+// without bound.
+const MAX_STORED_MESSAGES = 200;
+
 // Knowledge base + guardrails for the reynahouse.ai site assistant.
 // Sourced from the site's FAQ + Services. Pricing is NEVER quoted in writing.
 const SYSTEM_PROMPT = `You are Alyssa, the website assistant for Reyna House AI, a web design and AI automation studio. You answer questions from visitors on reynahouse.ai. You are not Edward (the founder) — you're Alyssa, the studio's assistant. If someone asks your name or who you are, introduce yourself as Alyssa. Speak warmly, plainly, and briefly — 2 to 4 short sentences, like a helpful person, not a brochure.
@@ -62,12 +66,47 @@ function json(obj, status = 200, extra = {}) {
   });
 }
 
+/** Normalized blob key, or null if the browser sent something unusable. */
+function convoKey(conversationId) {
+  if (!conversationId || typeof conversationId !== 'string') return null;
+  return conversationId.slice(0, 80).replace(/[^a-zA-Z0-9_-]/g, '') || null;
+}
+
+/**
+ * Rebuild the conversation from what WE stored, not from what the browser
+ * claims happened.
+ *
+ * The client posts a full message array including assistant turns. Trusting it
+ * lets anyone forge Alyssa's side of the history — invent a transcript where
+ * she already quoted a price or made a guarantee, then send one more user turn
+ * and screenshot the reply. The words would be ours; the history would not be.
+ *
+ * So assistant turns are taken exclusively from the store. The visitor still
+ * controls their own messages, which is unavoidable and fine.
+ *
+ * Returns [] when there is no stored history (first turn, or a storage
+ * failure). Losing context degrades one reply; trusting the client does not
+ * degrade, it forges.
+ */
+async function loadHistory(id) {
+  if (!id) return [];
+  try {
+    const store = getStore({ name: STORE, consistency: 'strong' });
+    const prev = await store.get(id, { type: 'json' });
+    if (!prev || !Array.isArray(prev.messages)) return [];
+    return prev.messages
+      .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+      .slice(-24)
+      .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
+  } catch {
+    return [];
+  }
+}
+
 // Persist one record per conversation (keyed by the browser's conversation id),
 // overwritten each turn with the full transcript + timing. Failures here must
 // never break the chat reply, so the caller wraps this in try/catch.
-async function logConversation(conversationId, messages, reply) {
-  if (!conversationId || typeof conversationId !== 'string') return;
-  const id = conversationId.slice(0, 80).replace(/[^a-zA-Z0-9_-]/g, '');
+async function logConversation(id, latestUser, reply) {
   if (!id) return;
   const store = getStore({ name: STORE, consistency: 'strong' });
   const now = new Date().toISOString();
@@ -77,8 +116,10 @@ async function logConversation(conversationId, messages, reply) {
   // (trimmed) window sent to the model — keeps the FULL transcript even when
   // the model only sees recent context on long conversations.
   const prior = (prev && Array.isArray(prev.messages)) ? prev.messages : [];
-  const latestUser = messages[messages.length - 1]; // newest visitor turn
-  const full = prior.concat([latestUser, { role: 'assistant', content: reply }]);
+  // Bounded so a long or abusive session cannot grow one blob without limit.
+  const full = prior
+    .concat([latestUser, { role: 'assistant', content: reply }])
+    .slice(-MAX_STORED_MESSAGES);
   const startedAt = (prev && prev.startedAt) || now;
   await store.setJSON(id, {
     id,
@@ -90,21 +131,19 @@ async function logConversation(conversationId, messages, reply) {
   });
 }
 
-// Validate + clamp the conversation the browser sent us.
-function sanitize(messages) {
+/**
+ * Pull the one thing we accept from the browser: the visitor's newest message.
+ * Everything else in the posted array is discarded — see loadHistory().
+ */
+function latestUserMessage(messages) {
   if (!Array.isArray(messages) || messages.length === 0) return null;
-  const out = [];
-  for (const m of messages.slice(-24)) {
-    if (!m || (m.role !== 'user' && m.role !== 'assistant')) return null;
-    const content = typeof m.content === 'string' ? m.content.slice(0, 2000) : null;
-    if (!content) return null;
-    out.push({ role: m.role, content });
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const m = messages[i];
+    if (m && m.role === 'user' && typeof m.content === 'string' && m.content.trim()) {
+      return { role: 'user', content: m.content.slice(0, 2000) };
+    }
   }
-  // The Anthropic API requires the first turn to be 'user'. A trimmed history
-  // can start on an assistant turn — drop leading assistant messages instead
-  // of failing the whole request.
-  while (out.length && out[0].role !== 'user') out.shift();
-  return out.length ? out : null;
+  return null;
 }
 
 export default async (req) => {
@@ -128,8 +167,16 @@ export default async (req) => {
     return json({ error: 'bad_request' }, 400);
   }
 
-  const messages = sanitize(body?.messages);
-  if (!messages) return json({ error: 'bad_request' }, 400);
+  const latestUser = latestUserMessage(body?.messages);
+  if (!latestUser) return json({ error: 'bad_request' }, 400);
+
+  // History comes from our store, never from the posted payload.
+  const key = convoKey(body?.conversationId);
+  const history = await loadHistory(key);
+  const messages = history.concat([latestUser]);
+  // The Anthropic API requires the first turn to be 'user'; a trimmed window
+  // can begin on an assistant turn.
+  while (messages.length && messages[0].role !== 'user') messages.shift();
 
   try {
     const client = new Anthropic(); // reads ANTHROPIC_API_KEY from the env
@@ -145,7 +192,7 @@ export default async (req) => {
       .join('\n')
       .trim();
     try {
-      await logConversation(body?.conversationId, messages, reply);
+      await logConversation(key, latestUser, reply);
     } catch (e) {
       console.error('log error:', e);
     }

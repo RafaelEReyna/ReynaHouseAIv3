@@ -270,6 +270,13 @@
 - **Second discovery:** Removing the form from the page HTML does **not** deregister it. Netlify kept accepting POSTs to `form-name=contact` after it vanished from every deploy; a verification POST landed successfully. Retiring a form requires `netlify api deleteSiteForm`, not just deleting the markup.
 - **Prevention:** Never verify a security fix by reading the code. POST the old attack path and confirm the submission count did not move.
 
+#### 38. The chat function trusted the browser's version of what Alyssa had said
+- **What happened:** `chat.mjs` accepted the full message array from the client, assistant turns included, and passed it straight to the model. Anyone could POST a fabricated transcript in which Alyssa had already quoted a price or made a guarantee, add one more user turn, and get a reply that read as confirmation. The words would have been genuinely ours; the history would have been invented.
+- **Cause:** The widget holds conversation state in the browser and posts it each turn, so the server had no independent record to compare against. The stored transcript in Blobs existed for the admin dashboard and was never used as the source of truth for the model.
+- **Fix:** `loadHistory()` rebuilds context from the Blobs store; only the visitor's newest user message is taken from the payload. Assistant turns are now exclusively server-authored. On a storage failure it returns `[]` — losing context degrades one reply, whereas trusting the client forges the record. Stored transcripts capped at 200 messages.
+- **Verified:** a forged history claiming "$499 flat and page one of Google in 30 days" produced "I don't have those numbers on file… I'm not aware of a 30-day page-one guarantee." A control conversation still carried "roofing company in Riverside" into the next turn, so server-side memory works.
+- **Prevention:** Never let the client supply the assistant's side of a conversation. If the server can't reconstruct history independently, the transcript is a claim, not a record.
+
 #### 37. The chat function was unauthenticated with no rate limit
 - **What happened:** `netlify/functions/chat.mjs` accepted unlimited anonymous POSTs, each one billing the Anthropic account. Found incidentally while closing the form hole.
 - **Cause:** Built for the happy path; abuse was never modeled.
