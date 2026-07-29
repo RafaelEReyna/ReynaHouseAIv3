@@ -1,0 +1,40 @@
+---
+// Netlify form registry — NOT a user-facing page.
+//
+// Netlify detects forms by parsing deployed HTML at build time. The homepage
+// contact form deliberately carries no data-netlify attribute and no
+// form-name field, so bots scraping reynahouse.ai cannot POST straight to
+// Netlify's form endpoint. This page is the only place the real form is
+// declared, which is why it is noindexed and excluded from the sitemap
+// (see astro.config.mjs).
+//
+// netlify/functions/contact-submit.mjs POSTs cleaned submissions here after
+// the spam gate passes. Keep the field list in sync with that function and
+// with src/components/Contact.astro.
+//
+// If you rename the form, change FORM_NAME in contact-submit.mjs to match or
+// every submission silently 404s.
+const FORM_NAME = 'rh-inbound-9f4c';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Form registry</title>
+  </head>
+  <body>
+    <form name={FORM_NAME} data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value={FORM_NAME} />
+      <input type="text" name="name" />
+      <input type="text" name="business" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="best-time" />
+      <input type="text" name="need" />
+      <textarea name="message"></textarea>
+      <input type="text" name="source-ip" />
+      <input type="text" name="user-agent" />
+    </form>
+  </body>
+</html>

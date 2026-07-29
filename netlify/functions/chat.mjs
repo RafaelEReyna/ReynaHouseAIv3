@@ -1,7 +1,13 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { getStore } from '@netlify/blobs';
+import { checkRateLimit, clientIp } from './_ratelimit.mjs';
 
 const STORE = 'alyssa-conversations';
+
+// This endpoint is unauthenticated and every call costs real money on the
+// Anthropic account, so it needs a ceiling. 30/hour per IP is far above any
+// genuine visitor conversation and far below anything worth scripting.
+const RATE = { max: 30, windowMs: 60 * 60 * 1000 };
 
 // Knowledge base + guardrails for the reynahouse.ai site assistant.
 // Sourced from the site's FAQ + Services. Pricing is NEVER quoted in writing.
@@ -49,10 +55,10 @@ RULES
 - Keep replies short and natural — usually 2 to 4 sentences. Don't over-explain or dump everything at once.
 - Write in plain conversational text. No markdown, asterisks, bold, headers, or bullet characters — your words are shown exactly as written in a small chat window.`;
 
-function json(obj, status = 200) {
+function json(obj, status = 200, extra = {}) {
   return new Response(JSON.stringify(obj), {
     status,
-    headers: { 'content-type': 'application/json' },
+    headers: { 'content-type': 'application/json', ...extra },
   });
 }
 
@@ -103,6 +109,17 @@ function sanitize(messages) {
 
 export default async (req) => {
   if (req.method !== 'POST') return json({ error: 'method_not_allowed' }, 405);
+
+  const ip = clientIp(req);
+  const limit = await checkRateLimit('chat', ip, RATE);
+  if (!limit.ok) {
+    console.warn(`chat: rate limited ${ip}`);
+    return json(
+      { reply: "I've hit my limit for now. Give Edward a call at 909-341-0243 and he'll pick right up." },
+      429,
+      { 'retry-after': String(limit.retryAfter) },
+    );
+  }
 
   let body;
   try {

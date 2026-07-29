@@ -1,5 +1,18 @@
 ---
 // Contact component — Phase I
+//
+// ANTI-SPAM CONTRACT (read before touching the form below):
+// This form is deliberately NOT registered with Netlify Forms. It carries no
+// data-netlify attribute and no form-name field, so a bot that scrapes this
+// page has no Netlify form endpoint to POST to directly. The real form is
+// declared only on the noindexed /forms/registry/ page under an opaque name.
+//
+// Submissions go to netlify/functions/contact-submit.mjs, which runs the spam
+// gate (honeypot, JS-execution token, fill-time floor, blocklist, per-IP rate
+// limit) and then forwards clean ones into Netlify Forms so they still hit the
+// dashboard and the email notification.
+//
+// Re-adding a Netlify form attribute here reopens the hole this closed.
 ---
 
 <section id="contact" class="contact" data-animate>
@@ -46,20 +59,17 @@
     <!-- Below Calendly -->
     <p class="contact__form-intro">Prefer to write it out? Use the form below.</p>
 
-    <!-- Netlify Contact Form -->
     <form
-      name="contact"
       method="POST"
-      action="/?submitted=true"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
+      action="/.netlify/functions/contact-submit"
       class="contact__form"
       id="contact-form"
     >
-      <input type="hidden" name="form-name" value="contact" />
       <p class="contact__hp" aria-hidden="true">
         <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
       </p>
+      <input type="hidden" name="_t" id="rh-t" />
+      <input type="hidden" name="_k" id="rh-k" />
 
       <div class="contact__field">
         <label for="name">Your Name *</label>
@@ -128,6 +138,23 @@
       if (success) success.style.display = 'block';
     }
 
+    // Stamp the anti-spam token. Mirrors tokenFor() in
+    // netlify/functions/contact-submit.mjs byte for byte — change one, change
+    // both, or every real submission starts failing as 'bad_token'.
+    (function stampToken() {
+      var t = Date.now();
+      var s = String(t) + 'rh';
+      var h = 2166136261;
+      for (var i = 0; i < s.length; i++) {
+        h ^= s.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      var tf = document.getElementById('rh-t');
+      var kf = document.getElementById('rh-k');
+      if (tf) tf.value = String(t);
+      if (kf) kf.value = (h >>> 0).toString(36);
+    })();
+
     // Neither email nor phone is individually required — but one of them has
     // to be there or the lead is unreachable. Enforced here rather than with
     // `required` on both, which is what made people abandon the form.
@@ -154,7 +181,7 @@
         syncReachValidity();
         if (!form.reportValidity()) return;
         var formData = new URLSearchParams(new FormData(form)).toString();
-        fetch('/', {
+        fetch('/.netlify/functions/contact-submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: formData
@@ -164,9 +191,13 @@
             form.style.display = 'none';
             if (success) success.style.display = 'block';
             if (window.rhTrack) window.rhTrack('generate_lead', { method: 'contact_form' });
-          } else {
-            alert('Something went wrong. Please try again or email edward@reynahouse.ai directly.');
+            return;
           }
+          // The gate returns a human-readable message for the cases a real
+          // person can actually hit (rate limit, upstream failure).
+          return response.json().catch(function() { return {}; }).then(function(body) {
+            alert(body.message || 'Something went wrong. Please try again or email edward@reynahouse.ai directly.');
+          });
         })
         .catch(function() {
           alert('Something went wrong. Please try again or email edward@reynahouse.ai directly.');
