@@ -233,6 +233,18 @@ const faqs = [
       </div>
     </section>
 
+    <!-- AI ASSISTANT -->
+    <section class="section section--dark">
+      <div class="section__container">
+        <h2 class="h2 h2--light">Getting Found Is Only Half the Job</h2>
+        <p class="body body--light">Every trade on this page has the same problem underneath it. The website and the Google listing bring the call in, and then the call arrives at the worst possible moment, because in a service business the work and the phone compete for the same pair of hands.</p>
+        <p class="body body--light">An AI assistant handles the second half. It answers what you cannot, qualifies the caller, and either books the job or texts you the details. It runs on your existing number and it does not care what trade you are in.</p>
+        <div style="margin-top: 24px;">
+          <a href="/ai-for-contractors/" class="btn btn--primary">See how the AI assistant works &rarr;</a>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--cta">
       <div class="section__container">
@@ -278,6 +290,10 @@ const faqs = [
           <a class="related__card" href="/why-not-showing-on-google/">
             <span>Why Isn't My Business on Google?</span>
             <small>The usual reasons, and how to fix them.</small>
+          </a>
+          <a class="related__card" href="/ai-for-contractors/">
+            <span>AI Assistant for Contractors</span>
+            <small>What answers the phone once the site starts working.</small>
           </a>
         </div>
       </div>
@@ -340,7 +356,7 @@ const faqs = [
   .related { background: var(--cream); padding: 48px 24px; }
   .related__container { max-width: 920px; margin: 0 auto; }
   .related__title { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
-  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
   .related__card { display: block; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; padding: 18px; transition: border-color 0.2s ease; }
   .related__card:hover { border-color: var(--copper); }
   .related__card span { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--navy); font-size: 1rem; line-height: 1.3; }

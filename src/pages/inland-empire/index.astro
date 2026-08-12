@@ -283,6 +283,18 @@ const faqs = [
       </div>
     </section>
 
+    <!-- AI ASSISTANT -->
+    <section class="section section--dark">
+      <div class="section__container">
+        <h2 class="h2 h2--light">Answer Every Call Across the Inland Empire</h2>
+        <p class="body body--light">Inland Empire service areas are wide. A contractor working Riverside, San Bernardino, Fontana, and Ontario spends a serious part of the day driving between them, and the calls do not pause for the drive.</p>
+        <p class="body body--light">An AI assistant answers while you are on the freeway. It takes the job details and the city, then books the appointment or texts you who called, so a lead in Rancho Cucamonga is not lost because you were on a job in Redlands.</p>
+        <div style="margin-top: 24px;">
+          <a href="/ai-for-contractors/" class="btn btn--primary">See how the AI assistant works &rarr;</a>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--cta">
       <div class="section__container">
@@ -328,6 +340,10 @@ const faqs = [
           <a class="related__card" href="/missed-call-text-back/">
             <span>Missed Call Text Back</span>
             <small>Stop losing jobs to voicemail when you can't pick up.</small>
+          </a>
+          <a class="related__card" href="/ai-for-contractors/">
+            <span>AI Assistant for Contractors</span>
+            <small>Answer calls from across the whole service area.</small>
           </a>
         </div>
       </div>
@@ -398,7 +414,7 @@ const faqs = [
   .related { background: var(--cream); padding: 48px 24px; }
   .related__container { max-width: 920px; margin: 0 auto; }
   .related__title { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
-  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
   .related__grid--four { grid-template-columns: repeat(5, 1fr); }
   .related__card { display: block; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; padding: 18px; transition: border-color 0.2s ease; }
   .related__card:hover { border-color: var(--copper); }

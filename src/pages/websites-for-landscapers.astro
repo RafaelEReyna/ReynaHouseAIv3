@@ -273,6 +273,18 @@ const faqs = [
       </div>
     </section>
 
+    <!-- AI ASSISTANT -->
+    <section class="section section--dark">
+      <div class="section__container">
+        <h2 class="h2 h2--light">You Cannot Hear the Phone Over a Mower</h2>
+        <p class="body body--light">Landscaping runs on routes. You are outdoors, moving between properties, with equipment running most of the day. The calls come in anyway, and a homeowner shopping for a weekly maintenance contract is comparing you against whoever answers first.</p>
+        <p class="body body--light">An AI assistant answers every one of them, asks whether it is a one time cleanup or ongoing service, gets the property address, and books the walkthrough. You see the whole day's calls when you stop for lunch instead of a list of numbers you do not recognize.</p>
+        <div style="margin-top: 24px;">
+          <a href="/ai-for-contractors/" class="btn btn--primary">See how the AI assistant works &rarr;</a>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--cta">
       <div class="section__container">
@@ -318,6 +330,10 @@ const faqs = [
           <a class="related__card" href="/why-not-showing-on-google/">
             <span>Why Isn't My Business on Google?</span>
             <small>The usual reasons, and how to fix them.</small>
+          </a>
+          <a class="related__card" href="/ai-for-contractors/">
+            <span>AI Assistant for Contractors</span>
+            <small>Catch the calls that come in mid route.</small>
           </a>
         </div>
       </div>
@@ -391,7 +407,7 @@ const faqs = [
   .related { background: var(--cream); padding: 48px 24px; }
   .related__container { max-width: 920px; margin: 0 auto; }
   .related__title { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
-  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
   .related__card { display: block; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; padding: 18px; transition: border-color 0.2s ease; }
   .related__card:hover { border-color: var(--copper); }
   .related__card span { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--navy); font-size: 1rem; line-height: 1.3; }

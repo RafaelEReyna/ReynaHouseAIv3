@@ -271,6 +271,18 @@ const faqs = [
       </div>
     </section>
 
+    <!-- AI ASSISTANT -->
+    <section class="section section--dark">
+      <div class="section__container">
+        <h2 class="h2 h2--light">You Cannot Answer With Your Hands in Someone's Hair</h2>
+        <p class="body body--light">A salon phone rings all day and almost never at a convenient moment. You are mid color, mid cut, or mid blowout, and the person calling wants to book. If nobody picks up, they book somewhere else, because booking is the whole reason they called.</p>
+        <p class="body body--light">An AI assistant answers, tells them what you offer, checks your real availability, and books the appointment while you keep working. It can also text a confirmation, which is the cheapest way there is to cut down on no shows.</p>
+        <div style="margin-top: 24px;">
+          <a href="/ai-for-contractors/" class="btn btn--primary">See how the AI assistant works &rarr;</a>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="section section--cta">
       <div class="section__container">
@@ -316,6 +328,10 @@ const faqs = [
           <a class="related__card" href="/missed-call-text-back/">
             <span>Missed Call Text Back</span>
             <small>Stop losing bookings to voicemail when you can't pick up.</small>
+          </a>
+          <a class="related__card" href="/ai-for-contractors/">
+            <span>AI Assistant for Contractors</span>
+            <small>Book the client without leaving your chair.</small>
           </a>
         </div>
       </div>
@@ -389,7 +405,7 @@ const faqs = [
   .related { background: var(--cream); padding: 48px 24px; }
   .related__container { max-width: 920px; margin: 0 auto; }
   .related__title { font-family: 'IBM Plex Mono', monospace; color: var(--copper-dark); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
-  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
   .related__card { display: block; background: var(--white); border: 1px solid var(--tan); border-radius: 10px; padding: 18px; transition: border-color 0.2s ease; }
   .related__card:hover { border-color: var(--copper); }
   .related__card span { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--navy); font-size: 1rem; line-height: 1.3; }
