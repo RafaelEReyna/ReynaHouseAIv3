@@ -282,3 +282,27 @@
 - **Cause:** Built for the happy path; abuse was never modeled.
 - **Fix:** 30/hour per IP via the shared limiter in `netlify/functions/_ratelimit.mjs` (Netlify Blobs, fails open).
 - **Prevention:** Any public endpoint that spends money needs a ceiling on day one.
+
+### Measurement & Lead Capture (Session 6, 2026-08-13 → 2026-08-15)
+
+#### 39. The CSP blocked GA4's data beacons for four months
+- **What happened:** `connect-src` allowed `www.google-analytics.com`, `*.google-analytics.com` and `*.analytics.google.com`. GA4 posts to the **bare host** `analytics.google.com`, plus `stats.g.doubleclick.net` and `www.google.com`. A CSP wildcard requires at least one subdomain label, so `*.analytics.google.com` never matched `analytics.google.com`. In a clean headless Chrome load, `gtag/js` fetched `200` and **zero collect beacons completed**. Introduced 2026-04-14 in `91c65a0`, found 2026-08-13.
+- **Why nobody noticed:** the tracking script loaded fine, so the install looked correct; CSP refusals only appear in the browser console; GA still trickled data through the one host that did match, so the dashboard was never suspiciously empty; and the low numbers agreed with the story everyone already believed ("we have no traffic yet"). Proof after the fix: 08-10→08-12 returned *no data in range*, 08-13→08-15 returned 4 sessions.
+- **Compounding cause:** the CSP was introduced *by* the commit titled "Fix mobile Lighthouse perf (34→98), a11y, and best practices" — and Lighthouse was never re-run afterward. The tool that would have caught it was the tool that had just been satisfied.
+- **Prevention:** re-run Lighthouse *after* shipping a security-header change, not just before. Treat "did analytics record my own visit today?" as a monthly check. A wildcard never matches the bare host — list both.
+
+#### 40. `generate_lead` counted blocked spam as conversions
+- **What happened:** the spam gate deliberately answers a rejected payload with the same `200 {ok:true}` it gives a real one, so a bot cannot learn why it failed. The client fired `generate_lead` on `response.ok`, so **every blocked submission was recorded as a lead**. Surfaced when GA showed 1 lead in a window with 0 form submissions on record.
+- **Fix:** a genuine acceptance now returns a `ref` receipt and the conversion fires on that alone; every submit is separately tracked as `form_submit_attempt`. The rejection response is byte-identical to before and still discloses no reason.
+- **Prevention:** a success-shaped response designed to deceive bots will deceive your analytics too. Fire conversions on a signal the server only emits on the real path.
+
+#### 41. The spam blocklist contained Reyna House's own service vocabulary
+- **What happened:** `BLOCKLIST` held `'seo services'` and `'digital marketing agency'`. A real prospect writing "I need help with SEO services" matched a spam rule, was **silently discarded**, and saw a success message. Rejections were logged and dropped — "Logged, not stored… A real visitor never sees this path" — and function logs age out, so any false positive was unrecoverable.
+- **Also false:** `stale_token` fires on a tab left open past 12h and `too_fast` on an autofill. Real people absolutely reach that path.
+- **Fix:** both terms removed; a blocklist may only hold phrases **a seller uses and a buyer does not**. Rejected payloads now land in the `contact-quarantine` blob store (`netlify blobs:list contact-quarantine`) instead of being destroyed.
+- **Prevention:** never blocklist the words your own customers use to describe what they want to buy. Never make a filter's rejection unrecoverable.
+
+#### 42. Deleting a Netlify form does not stick while any deployed HTML still declares it
+- **What happened:** issue #36 removed the homepage form markup and deregistered the `contact` form. It came back. `public/form-placeholder.html` — a leftover from the original build whose only purpose was to make Netlify detect a form named `contact` — still shipped in every deploy, and Netlify re-detects forms from deployed HTML each time. A direct `POST` of `form-name=contact` to `/` landed a real submission on 2026-08-15, months after the hole was believed closed.
+- **Fix:** deleted the placeholder, deployed **first**, then ran `deleteSiteForm`. Order matters — deleting the form before the deploy just lets the deploy recreate it. Re-attacking the path afterward returns `404` with no submission recorded.
+- **Prevention:** `grep -r 'form-name' dist/` after any form change. Deregistering a form means removing **every** declaration of it, then deploying, then deleting. And per #36's own rule: verify by POSTing the attack path, never by reading the code.
