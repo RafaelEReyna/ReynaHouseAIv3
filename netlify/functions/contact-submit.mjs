@@ -1,3 +1,4 @@
+import { getStore } from '@netlify/blobs';
 import { checkRateLimit, clientIp } from './_ratelimit.mjs';
 
 // The real Netlify form name. Deliberately opaque and declared ONLY on the
@@ -19,11 +20,18 @@ const RATE = { max: 5, windowMs: 60 * 60 * 1000 };
 
 // Verbatim fragments from the spam that got through the old honeypot, plus the
 // usual form-blast tells. Matched case-insensitively against the whole payload.
+//
+// ⚠️ Every entry here must be a phrase a SELLER uses and a BUYER does not.
+// 'seo services' and 'digital marketing agency' were removed 2026-08-15: they
+// describe what Reyna House sells, so a real prospect writing "I need help with
+// SEO services" was silently discarded. Never blocklist your own service
+// vocabulary — spam that happens to use those words is caught by the seller-
+// side tells below ('guest post', 'backlink', 'we can rank your') and by the
+// link-stuffing rule.
 const BLOCKLIST = [
   'insaneleads',
   'found, analyzed, and contacted by ai',
   'per 1,000 leads',
-  'seo services',
   'guest post',
   'backlink',
   'crypto',
@@ -31,7 +39,6 @@ const BLOCKLIST = [
   'bitcoin',
   'we can rank your',
   'increase your traffic',
-  'digital marketing agency',
 ];
 
 function json(obj, status = 200, extra = {}) {
@@ -121,6 +128,26 @@ async function forwardToNetlifyForms(fields, ip, userAgent) {
   if (!res.ok) throw new Error(`netlify forms responded ${res.status}`);
 }
 
+/**
+ * Park a rejected submission where a human can still find it. A false positive
+ * costs a customer; a quarantined bot costs a few bytes. Never throws — a
+ * storage failure must not turn into a 502 on the visitor's screen.
+ */
+async function quarantine(fields, ip, reason) {
+  try {
+    const store = getStore({ name: 'contact-quarantine', consistency: 'strong' });
+    const stamp = new Date().toISOString();
+    await store.setJSON(`${stamp}-${ip.replace(/[^a-z0-9]/gi, '')}`, {
+      rejected_at: stamp,
+      reason,
+      ip,
+      fields,
+    });
+  } catch (err) {
+    console.error('contact-submit: quarantine write failed', err);
+  }
+}
+
 export default async (req) => {
   if (req.method !== 'POST') return json({ error: 'method_not_allowed' }, 405);
 
@@ -146,11 +173,17 @@ export default async (req) => {
 
   const reason = spamReason(fields);
   if (reason) {
-    // Logged, not stored. Rejections are noise; the point is that nothing
-    // reaches the inbox. Check function logs if a real person ever complains.
     console.warn(`contact-submit: rejected (${reason}) from ${ip}`);
-    // Deliberately a 200 with ok:true. Telling a bot *why* it failed is how it
-    // learns to pass. A real visitor never sees this path.
+    // Quarantined, not discarded. The previous version logged and dropped the
+    // payload, on the reasoning that "a real visitor never sees this path" —
+    // which is false. A real person hits stale_token by leaving a tab open, or
+    // too_fast by autofilling, and used to be deleted in silence with a success
+    // message on screen. Function logs age out, so those were unrecoverable.
+    // Review with: netlify blobs:list contact-quarantine
+    await quarantine(fields, ip, reason);
+    // Still a 200 with no reason attached. Withholding *why* is what stops a
+    // bot tuning its payload; the absence of a receipt only tells it that
+    // something failed, which it could infer anyway from nobody replying.
     return json({ ok: true });
   }
 
@@ -164,5 +197,8 @@ export default async (req) => {
     );
   }
 
-  return json({ ok: true });
+  // The receipt is the ONLY signal that a submission genuinely landed. The
+  // client fires the generate_lead conversion on this and nothing else, so a
+  // quarantined payload can no longer be counted as a lead.
+  return json({ ok: true, ref: crypto.randomUUID().slice(0, 8) });
 };

@@ -190,8 +190,18 @@
           if (response.ok) {
             form.style.display = 'none';
             if (success) success.style.display = 'block';
-            if (window.rhTrack) window.rhTrack('generate_lead', { method: 'contact_form' });
-            return;
+            // The gate answers a rejected payload with the same 200 ok:true it
+            // gives a real one, so that a bot cannot tell the two apart. That
+            // means response.ok is NOT evidence of a lead — firing on it
+            // counted every blocked submission as a conversion. Only a `ref`
+            // receipt means the submission actually reached the inbox.
+            return response.json().catch(function() { return {}; }).then(function(body) {
+              if (!window.rhTrack) return;
+              window.rhTrack('form_submit_attempt', { method: 'contact_form' });
+              if (body && body.ref) {
+                window.rhTrack('generate_lead', { method: 'contact_form' });
+              }
+            });
           }
           // The gate returns a human-readable message for the cases a real
           // person can actually hit (rate limit, upstream failure).
