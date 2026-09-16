@@ -18,6 +18,19 @@
   status = 301
   force = true
 
+# A carrier reviewer guesses /terms before /sms-terms. Send them to the real page.
+[[redirects]]
+  from = "/terms"
+  to = "/sms-terms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms/"
+  to = "/sms-terms/"
+  status = 301
+  force = true
+
 # Long cache for hashed/immutable assets produced by Astro's build.
 [[headers]]
   for = "/_astro/*"
