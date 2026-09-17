@@ -1,7 +1,7 @@
 ---
 // About component — Phase H
 import { Image } from 'astro:assets';
-import edwardPhoto from '../assets/images/_Y1A8620.jpg';
+import edwardPhoto from '../assets/images/edward-reyna-hat-2026-09-16.jpg';
 ---
 
 <section id="about" class="about" data-animate>
@@ -66,7 +66,7 @@ import edwardPhoto from '../assets/images/_Y1A8620.jpg';
 
     <!-- Right Column — Photo -->
     <div class="about__photo">
-      <Image src={edwardPhoto} alt="Edward Reyna — founder of Reyna House AI, Big Bear, CA" width={400} height={480} loading="lazy" decoding="async" class="about__photo-img" />
+      <Image src={edwardPhoto} alt="Edward Reyna — founder of Reyna House AI, Big Bear, CA" width={400} height={480} densities={[1, 2]} loading="lazy" decoding="async" class="about__photo-img" />
     </div>
   </div>
 </section>
