@@ -64,6 +64,9 @@
       action="/.netlify/functions/contact-submit"
       class="contact__form"
       id="contact-form"
+      data-rh-contact
+      data-success="form-success"
+      data-method="contact_form"
     >
       <p class="contact__hp" aria-hidden="true">
         <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
@@ -83,12 +86,12 @@
 
       <div class="contact__field">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" autocomplete="email" />
+        <input type="email" id="email" name="email" autocomplete="email" aria-describedby="reach-note" />
       </div>
 
       <div class="contact__field">
         <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" autocomplete="tel" />
+        <input type="tel" id="phone" name="phone" autocomplete="tel" aria-describedby="reach-note" />
       </div>
 
       <p class="contact__reach-note" id="reach-note">
@@ -127,95 +130,10 @@
   </div>
 </section>
 
-<script is:inline>
-  // Handle form submission via fetch to Netlify forms endpoint
-  (function() {
-    var form = document.getElementById('contact-form');
-    var success = document.getElementById('form-success');
-
-    // Also handle page reload with ?submitted=true (fallback)
-    if (window.location.search.includes('submitted=true')) {
-      if (form) form.style.display = 'none';
-      if (success) success.style.display = 'block';
-    }
-
-    // Stamp the anti-spam token. Mirrors tokenFor() in
-    // netlify/functions/contact-submit.mjs byte for byte — change one, change
-    // both, or every real submission starts failing as 'bad_token'.
-    (function stampToken() {
-      var t = Date.now();
-      var s = String(t) + 'rh';
-      var h = 2166136261;
-      for (var i = 0; i < s.length; i++) {
-        h ^= s.charCodeAt(i);
-        h = Math.imul(h, 16777619);
-      }
-      var tf = document.getElementById('rh-t');
-      var kf = document.getElementById('rh-k');
-      if (tf) tf.value = String(t);
-      if (kf) kf.value = (h >>> 0).toString(36);
-    })();
-
-    // Neither email nor phone is individually required — but one of them has
-    // to be there or the lead is unreachable. Enforced here rather than with
-    // `required` on both, which is what made people abandon the form.
-    var email = document.getElementById('email');
-    var phone = document.getElementById('phone');
-    function syncReachValidity() {
-      if (!email || !phone) return;
-      var ok = email.value.trim() !== '' || phone.value.trim() !== '';
-      var msg = ok ? '' : 'Add an email or a phone number so I can reply.';
-      email.setCustomValidity(msg);
-      phone.setCustomValidity(msg);
-    }
-    if (email && phone) {
-      email.addEventListener('input', syncReachValidity);
-      phone.addEventListener('input', syncReachValidity);
-      email.setAttribute('aria-describedby', 'reach-note');
-      phone.setAttribute('aria-describedby', 'reach-note');
-      syncReachValidity();
-    }
-
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        syncReachValidity();
-        if (!form.reportValidity()) return;
-        var formData = new URLSearchParams(new FormData(form)).toString();
-        fetch('/.netlify/functions/contact-submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: formData
-        })
-        .then(function(response) {
-          if (response.ok) {
-            form.style.display = 'none';
-            if (success) success.style.display = 'block';
-            // The gate answers a rejected payload with the same 200 ok:true it
-            // gives a real one, so that a bot cannot tell the two apart. That
-            // means response.ok is NOT evidence of a lead — firing on it
-            // counted every blocked submission as a conversion. Only a `ref`
-            // receipt means the submission actually reached the inbox.
-            return response.json().catch(function() { return {}; }).then(function(body) {
-              if (!window.rhTrack) return;
-              window.rhTrack('form_submit_attempt', { method: 'contact_form' });
-              if (body && body.ref) {
-                window.rhTrack('generate_lead', { method: 'contact_form' });
-              }
-            });
-          }
-          // The gate returns a human-readable message for the cases a real
-          // person can actually hit (rate limit, upstream failure).
-          return response.json().catch(function() { return {}; }).then(function(body) {
-            alert(body.message || 'Something went wrong. Please try again or email edward@reynahouse.ai directly.');
-          });
-        })
-        .catch(function() {
-          alert('Something went wrong. Please try again or email edward@reynahouse.ai directly.');
-        });
-      });
-    }
-  })();
+<script>
+  // Submit, anti-spam token, email-or-phone check and GA events: shared with
+  // /free-listing-check/ so there is one browser-side copy of that logic.
+  import '../scripts/contact-form.js';
 </script>
 
 <script is:inline>

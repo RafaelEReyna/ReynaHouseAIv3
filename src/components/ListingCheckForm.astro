@@ -1,0 +1,125 @@
+---
+// Sign-up form for /free-listing-check/. Markup only: submit, anti-spam token
+// and GA events live in src/scripts/contact-form.js, shared with Contact.astro.
+//
+// Same anti-spam contract as Contact.astro: no data-netlify attribute and no
+// form-name field. Submissions go through netlify/functions/contact-submit.mjs,
+// which forwards only the fields it knows (name, business, email, phone,
+// best-time, need, message), so the town rides inside `business`.
+---
+
+<form
+  method="POST"
+  action="/.netlify/functions/contact-submit"
+  class="lc-form"
+  data-rh-contact
+  data-success="lc-success"
+  data-method="listing_check_form"
+>
+  <p class="lc-form__hp" aria-hidden="true">
+    <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+  </p>
+  <input type="hidden" name="_t" />
+  <input type="hidden" name="_k" />
+  <input type="hidden" name="need" value="Free Google Listing Check" />
+
+  <div class="lc-form__field">
+    <label for="lc-name">Your name *</label>
+    <input type="text" id="lc-name" name="name" autocomplete="name" required />
+  </div>
+
+  <div class="lc-form__field">
+    <label for="lc-business">Business name and town *</label>
+    <input type="text" id="lc-business" name="business" autocomplete="organization" placeholder="Business name, town" required />
+  </div>
+
+  <div class="lc-form__field">
+    <label for="lc-email">Email</label>
+    <input type="email" id="lc-email" name="email" autocomplete="email" aria-describedby="lc-reach" />
+  </div>
+
+  <div class="lc-form__field">
+    <label for="lc-phone">Phone number</label>
+    <input type="tel" id="lc-phone" name="phone" autocomplete="tel" aria-describedby="lc-reach" />
+  </div>
+
+  <p class="lc-form__note" id="lc-reach">Email or phone; whichever you'd rather I use. One is enough.</p>
+
+  <div class="lc-form__field lc-form__field--full">
+    <label for="lc-message">Anything you already think is wrong? (optional)</label>
+    <textarea id="lc-message" name="message" rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="lc-form__submit">Send It &rarr;</button>
+</form>
+
+<p id="lc-success" class="lc-form__success" role="status" style="display:none;">
+  Got it. I'll look at your listing and send you what I find.
+</p>
+
+<script>
+  import '../scripts/contact-form.js';
+</script>
+
+<style>
+  .lc-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 28px;
+    text-align: left;
+  }
+  .lc-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .lc-form__field { display: flex; flex-direction: column; gap: 6px; }
+  .lc-form__field--full, .lc-form__note, .lc-form__submit { grid-column: 1 / -1; }
+  .lc-form__field label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 0.9rem;
+  }
+  .lc-form__field input,
+  .lc-form__field textarea {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--dark);
+    background: var(--white);
+    border: 1px solid var(--navy);
+    border-radius: 6px;
+    padding: 12px;
+  }
+  .lc-form__field input:focus-visible,
+  .lc-form__field textarea:focus-visible {
+    outline: 2px solid var(--copper-dark);
+    outline-offset: 1px;
+  }
+  .lc-form__note {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    font-size: 0.85rem;
+    margin: -6px 0 0;
+  }
+  .lc-form__submit {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    background-color: var(--copper-dark);
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .lc-form__submit:hover { background-color: #6E4A1B; }
+  .lc-form__submit:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+  .lc-form__success {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--navy);
+    font-size: 1.5rem;
+    margin-top: 28px;
+  }
+  @media (max-width: 700px) {
+    .lc-form { grid-template-columns: 1fr; }
+  }
+</style>

@@ -49,8 +49,8 @@ function json(obj, status = 200, extra = {}) {
 }
 
 /**
- * Proof that JavaScript actually ran on the page. Mirrored byte-for-byte by the
- * inline script in Contact.astro.
+ * Proof that JavaScript actually ran on the page. Mirrored byte-for-byte by
+ * src/scripts/contact-form.js, which every lead form on the site shares.
  *
  * This is obfuscation, not cryptography — the algorithm is readable in the page
  * source, so a bot written specifically for this site could reproduce it. That
