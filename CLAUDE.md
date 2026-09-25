@@ -11,7 +11,7 @@
 - **Live URL:** https://reynahouseai-v3.netlify.app
 - **Netlify account slug:** `rafaelereyna` (team name: "Reyna Legacy")
 - **Build command:** `npm run build` | **Publish dir:** `dist`
-- CI/CD linked in Netlify UI (GitHub repo connected) but webhook may not trigger builds — using manual `netlify deploy --prod --dir=dist` as fallback
+- CI/CD linked in Netlify UI (GitHub repo connected) but webhook may not trigger builds — using manual `netlify deploy --prod --dir=dist` as fallback (⬜🌐 lives outside the repo, last known at issue #29 below; not re-checked 2026-09-24)
 
 ---
 
