@@ -1,4 +1,4 @@
-# CLAUDE.md — ReynaHouseAI.com Project Notes
+# CLAUDE.md — reynahouse.ai Project Notes (formerly titled ReynaHouseAI.com; the live domain has been reynahouse.ai, corrected 2026-09-24)
 
 ## Project Stack
 - Astro v5.17 + Tailwind CSS v4 + Netlify
